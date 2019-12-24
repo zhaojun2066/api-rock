@@ -1,0 +1,33 @@
+rock:
+  node_listen: 9080              # APISIX listening port
+  enable_heartbeat: false
+  enable_admin: true
+
+mysql:
+  host: "10.12.40.224"
+  port: 3306
+  user: "openplatform"
+  password: "q1w2e3r4ys"
+  database: "rock"
+  timeout: 3000 # ms
+  max_idle_timeout: 30000
+  pool_size: 50
+
+plugins:                          # plugin list
+  - example-plugin
+  - limit-req
+  - limit-count
+  - limit-conn
+  - key-auth
+  - prometheus
+  - node-status
+  - jwt-auth
+  - zipkin
+  - ip-restriction
+  - grpc-transcode
+  - serverless-pre-function
+  - serverless-post-function
+  - openid-connect
+  - proxy-rewrite
+  - redirect
+  - response-rewrite
