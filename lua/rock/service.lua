@@ -26,7 +26,7 @@ local function load_service()
     service_hash = new_table(0,#res)
 
     for _,v  in ipairs(res)  do
-        service_hash[v.id] = v.data
+        service_hash[v.id] = rock_core.json.decode_json(v.data)
     end
 end
 
@@ -48,8 +48,5 @@ function _M.put(service)
     service_hash[service.id] = service
 end
 
-function _M.go(router)
-    --
-end
 
 return _M

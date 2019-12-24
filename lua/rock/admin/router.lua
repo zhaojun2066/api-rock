@@ -9,8 +9,6 @@ local require = require
 local ngx = ngx
 local rock_core = require('rock.core')
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
-local rapidjson = require('rapidjson')
-local encode_json = rapidjson.encode
 
 local _M ={}
 
@@ -39,7 +37,7 @@ function _M.put(router)
     if not ok then
         return 400,err
     end
-    local router_value = quote_sql_str(encode_json(router))
+    local router_value = quote_sql_str(rock_core.json.encode_json(router))
     local sql = "insert into router (`data`,created,updated) values("..router_value..",now(),now())"
     local res,err = rock_core.mysql.query(sql)
     if not res then
@@ -88,7 +86,7 @@ function _M.patch(router)
         return 400,{error_msg = "id is not null"}
     end
     local id_value = quote_sql_str(id)
-    local router_value = quote_sql_str(router)
+    local router_value = quote_sql_str(rock_core.json.encode_json(router))
     local sql = "update router set `data` = "..router_value.." where id = ".. id_value
     local res,err = rock_core.mysql.query(sql)
     if not res then

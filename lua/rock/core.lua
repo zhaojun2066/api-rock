@@ -21,4 +21,5 @@ return {
     log      = require("rock.core.log"),
     util     = require("rock.core.util"),
     response = require("rock.core.response"),
+    json     = require("rock.core.json"),
 }

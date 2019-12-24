@@ -17,7 +17,6 @@ local ngx = ngx
 local timer_at = ngx.timer.at
 local service = require("rock.service")
 local lrucache = require ("resty.lrucache")
----local ngx_re   = require("ngx.re")
 
 
 local _M = {}
@@ -26,17 +25,18 @@ local upstream_hash
 local upstream_argo_cache
 
 local function load_upstream()
-    local sql = "select * from upstream limit 5000"
+    local sql = "select * from upstream limit 10000"
     local res,err,sqlstate = rock_core.mysql.query(sql)
     ---- todo 如果失败要有重试机制
     if not res then
         rock_core.log.error(err)
+        return
     end
 
     upstream_hash = new_table(0,#res)
 
     for _,v  in ipairs(res)  do
-        upstream_hash[v.id] = v.data
+        upstream_hash[v.id] = rock_core.json.decode_json(v.data)
     end
 end
 

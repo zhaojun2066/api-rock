@@ -9,8 +9,6 @@ local require = require
 local rock_core = require('rock.core')
 local ngx = ngx
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
-local rapidjson = require('rapidjson')
-local encode_json = rapidjson.encode
 
 local _M ={}
 
@@ -36,7 +34,7 @@ function _M.put(upstream)
     if not ok then
         return 400,err
     end
-    local upstream_value = quote_sql_str(encode_json(upstream))
+    local upstream_value = quote_sql_str(rock_core.json.encode_json(upstream))
     local sql = "insert into upstream (data,created,updated) values("..upstream_value..",now(),now())"
     local res,err,sqlstate = rock_core.mysql.query(sql)
     if not res then
@@ -84,7 +82,7 @@ function _M.patch(upstream)
         return 400,{error_msg = "id is not null"}
     end
     local id_value = quote_sql_str(id)
-    local upstream_value = quote_sql_str(upstream)
+    local upstream_value = quote_sql_str(rock_core.json.encode_json(upstream))
     local sql = "update upstream set data = "..upstream_value.." where id = ".. id_value
     local res,err = rock_core.mysql.query(sql)
     if not res then

@@ -13,8 +13,6 @@ local ngx_re   = require("ngx.re")
 local str_lower = string.lower
 local router
 local get_method = ngx.req.get_method
-local rapidjson = require('rapidjson')
-local decode_json = rapidjson.decode
 local rock_core = require('rock.core')
 
 local models = {
@@ -41,7 +39,11 @@ local function run()
     if method ~= 'get' and method ~= 'delete' and req_body then
         --  其他请求必须要有body
         if  req_body then
-            req_body ,err= decode_json(req_body)
+            req_body ,err= rock_core.json.decode_json(req_body)
+            if not req_body then
+                return rock_core.response.exit(400, {error_msg = "invalid request body, "..err,
+                    req_body = req_body})
+            end
         else
             return rock_core.response.exit(400, {error_msg = "invalid request body",
                 req_body = req_body})
