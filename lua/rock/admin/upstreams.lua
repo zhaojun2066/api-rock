@@ -3,10 +3,11 @@
 -- User: jufeng
 -- Date: 19/12/2019
 -- Time: 上午10:15
---  upstream crud
+--  upstream crud  下游服务
 --
 local require = require
 local rock_core = require('rock.core')
+local upstream_cache = require('rock.balancer')
 local ngx = ngx
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
 
@@ -27,8 +28,17 @@ local function check(data)
     end
     return true ,nil
 end
+
+local function action_cache(action,data)
+    if action == "put" then
+        upstream_cache.put(data) --- 添加or更新cache
+    elseif action == "delete" then
+        upstream_cache.delete(data) -- 删除
+    end
+end
+
 --- add new router
-function _M.put(upstream)
+function _M.post(upstream)
     ---check data
     local ok ,err = check(upstream)
     if not ok then
@@ -41,6 +51,7 @@ function _M.put(upstream)
         return 500,{error_msg = err}
     end
     upstream.id = res.insert_id
+    action_cache("put",upstream)
     return 200, upstream
 end
 
@@ -69,10 +80,12 @@ function _M.delete(id)
     if not res then
         return 500,{error_msg = err}
     end
+    action_cache("delete",id)
     return 200, res
 end
 
-function _M.patch(upstream)
+---- update upstream
+function _M.put(upstream)
     local ok ,err = check(upstream)
     if not ok then
         return 400,err
@@ -88,7 +101,18 @@ function _M.patch(upstream)
     if not res then
         return 500,{error_msg = err}
     end
+    action_cache("put",upstream)
     return 200, upstream
+end
+
+
+function _M.list()
+    local sql = "select * from upstream limit 10000"
+    local res,err = rock_core.mysql.query(sql)
+    if not res then
+        return 500,{error_msg = err}
+    end
+    return 200, res
 end
 
 return _M

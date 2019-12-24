@@ -63,7 +63,7 @@ function _M.init_http_worker()
     timer_at(0,load_router)
 end
 
-function _M.get_router(id)
+function _M.get(id)
     return router_hash[id]
 end
 
@@ -111,7 +111,7 @@ function _M.put(router)
 end
 
 
-function _M.delete_router(id)
+function _M.delete(id)
     router_hash[id] = nil
     reload_router()
 end

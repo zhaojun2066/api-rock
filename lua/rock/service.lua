@@ -3,7 +3,7 @@
 -- User: jufeng
 -- Date: 23/12/2019
 -- Time: 上午10:37
--- 初始化上游服务 upstream
+-- 初始化service
 --
 local require = require
 local rock_core = require('rock.core')
@@ -43,10 +43,13 @@ function _M.reload_service()
     load_service()
 end
 
---- 新增或者更新upstream
+--- 新增或者更新service
 function _M.put(service)
     service_hash[service.id] = service
 end
 
+function _M.delete(id)
+    service_hash[id] = nil
+end
 
 return _M

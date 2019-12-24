@@ -8,6 +8,7 @@
 local require = require
 local ngx = ngx
 local rock_core = require('rock.core')
+local router_cache = require('rock.router')
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
 
 local _M ={}
@@ -30,8 +31,17 @@ local function check(data)
     --- todo check filter function 是否包含过滤器函数，然后是否定义了
     return true ,nil
 end
---- add new router
-function _M.put(router)
+
+local function action_cache(action,data)
+    if action == "put" then
+        router_cache.put(data) --- 添加or更新cache
+    elseif action == "delete" then
+        router_cache.delete(data) -- 删除
+    end
+end
+
+--- add router
+function _M.post(router)
     ---check data
     local ok ,err = check(router)
     if not ok then
@@ -45,9 +55,11 @@ function _M.put(router)
     end
     ---logger(ERR,"req_body:" ..res)
     router.id = res.insert_id
+    action_cache("put",router)
     return 200, router
 end
 
+--- get a router
 function _M.get(id)
     if not id then
         return 400,{error_msg = "id is not null"}
@@ -63,6 +75,7 @@ function _M.get(id)
     return 200, router
 end
 
+
 function _M.delete(id)
     if not id then
         return 400,{error_msg = "id is not null"}
@@ -73,10 +86,12 @@ function _M.delete(id)
     if not res then
         return 500,{error_msg = err}
     end
+    action_cache("delete",id)
     return 200, res
 end
 
-function _M.patch(router)
+--- update router
+function _M.put(router)
     local ok ,err = check(router)
     if not ok then
         return 400,err
@@ -92,7 +107,18 @@ function _M.patch(router)
     if not res then
         return 500,{error_msg = err}
     end
+    action_cache("put",router)
     return 200, router
+end
+
+
+function _M.list()
+    local sql = "select * from router limit 10000"
+    local res,err = rock_core.mysql.query(sql)
+    if not res then
+        return 500,{error_msg = err}
+    end
+    return 200, res
 end
 
 return _M

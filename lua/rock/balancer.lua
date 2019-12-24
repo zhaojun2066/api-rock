@@ -152,5 +152,9 @@ function _M.put(upstream)
     upstream_hash[upstream.id] = upstream
 end
 
+function _M.delete(id)
+    upstream_hash[id] = nil
+end
+
 
 return _M

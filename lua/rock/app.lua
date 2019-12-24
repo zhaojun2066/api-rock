@@ -15,6 +15,7 @@ local balancer = require("rock.balancer")
 local service = require("rock.service")
 local router = require("rock.router")
 local _M = {}
+
 function _M.http_init()
     require("resty.core") -- 开启resty.core
 end
@@ -32,6 +33,8 @@ function _M.http_init_worker()
 end
 
 function _M.http_rewrite_phase() end
+
+
 function _M.http_access_phase()
     --- todo run access plugins  第一步 执行 acces 阶段的pluain access 方法
     --- todo match router 第二步 根据参数匹配router，然后返回可用的upstream,设置ngx.ctx 中，然后在balancer 阶段 取出，然后设置
@@ -40,16 +43,23 @@ function _M.http_access_phase()
 
 
 end
+
+
 function _M.http_balancer_phase()
     ---  set  upstream
     balancer.run()
 end
+
+
 function _M.http_body_filter_phase()
     --- todo run all body filter
 end
+
+
 function _M.http_header_filter_phase()
     --- todo run all header filter
 end
+
 function _M.http_log_phase()
     --- todo run log filter
 end
