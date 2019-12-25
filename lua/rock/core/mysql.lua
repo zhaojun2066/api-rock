@@ -11,6 +11,7 @@ local config = require("rock.core.config")
 local logger = ngx.log                                                 --- function ngx log
 local ERR = ngx.ERR
 local _M ={}
+local client
 local function get_connection()
     local client, errmsg = mysql:new()
     if not client then

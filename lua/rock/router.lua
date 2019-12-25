@@ -17,13 +17,16 @@ local radix = require("resty.radixtree")
 local table_insert = table.insert
 local get_method = ngx.req.get_method
 local resty_lock = require ("resty.lock") -- 更新router需要加锁，work级别
+local timer_every = ngx.timer.every
+local router_key = "rock_router"
+
 
 local _M = {}
 local router_hash
-local router
+local routers
 
 
-local function load_router()
+local function load_routers()
     local sql = "select * from router limit 10000"
     local res,err,sqlstate = rock_core.mysql.query(sql)
     ---- todo 如果失败要有重试机制
@@ -52,25 +55,10 @@ local function load_router()
         })
     end
 
-    router = radix.new(router_array)
+    routers = radix.new(router_array)
 end
 
-function _M.get_router()
-    return router
-end
-
-function _M.init_http_worker()
-    timer_at(0,load_router)
-end
-
-function _M.get(id)
-    return router_hash[id]
-end
-
-
-
-
-local function reload_router()
+local function reload_routers()
 
     local lock, err = resty_lock:new("router_locks")
     if not lock then
@@ -96,7 +84,7 @@ local function reload_router()
         end
     end
 
-    router = radix.new(router_array)
+    routers = radix.new(router_array)
 
     local ok, err = lock:unlock()
     if not ok then
@@ -104,16 +92,48 @@ local function reload_router()
     end
 
 end
---- 新增或者更新router
-function _M.put(router)
-    router_hash[router.id] = router
-    reload_router()
+
+function _M.get_router()
+    return router
 end
 
 
+local reddis = rock_core.redis.new()
+
+local function subscribe_router()
+    reddis:subscribe(router_key)
+end
+local function put(router)
+    router_hash[router.id] = router
+    reload_routers()
+end
+local function recive_router()
+    local res ,error =  reddis:read_reply()
+    if not res then
+        rock_core.log.error("recive_router  err : " ..  error)
+    end
+
+    local router_str = res[3]
+    local router = rock_core.json.decode_json(router_str)
+    put(router)
+end
+
+function _M.init_http_worker()
+    timer_at(0,load_routers)
+    timer_at(0,subscribe_router)
+    timer_every(5,recive_router)
+end
+
+function _M.get(id)
+    return router_hash[id]
+end
+
+--- 新增或者更新router
+_M.put  = put
+
 function _M.delete(id)
     router_hash[id] = nil
-    reload_router()
+    reload_routers()
 end
 
 
@@ -125,7 +145,7 @@ function _M.match()
     match_opts.remote_addr = rock_core.util.get_ip()
     match_opts.vars = ngx.var
 
-    local ok = router:dispatch(ngx.var.uri, match_opts)
+    local ok = routers:dispatch(ngx.var.uri, match_opts)
     if not ok then
         rock_core.log.error("not find any matched route")
         return ngx.exit(404)
@@ -133,8 +153,6 @@ function _M.match()
 
     return true
 end
-
-
 
 return _M
 

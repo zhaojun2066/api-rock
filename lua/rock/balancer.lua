@@ -15,8 +15,10 @@ local ipairs = ipairs
 local pairs = pairs
 local ngx = ngx
 local timer_at = ngx.timer.at
+local timer_every = ngx.timer.every
 local service = require("rock.service")
 local lrucache = require ("resty.lrucache")
+local upstream_key = "rock_upstream"
 
 
 local _M = {}
@@ -40,7 +42,7 @@ local function load_upstream()
     end
 end
 
-local function init_upstream_cache()
+local function init_upstream_argo_cache()
     local c, err = lrucache.new(5000)  -- allow up to 5000 items in the cache
     if not c then
         rock_core.log.error("failed to create the cache: " .. (err or "unknown"))
@@ -48,14 +50,41 @@ local function init_upstream_cache()
     upstream_argo_cache = c
 end
 
+local reddis = rock_core.redis.new()
+local function subscribe_upstream()
+    reddis:subscribe(upstream_key)
+end
+
+local function put(upstream)
+    upstream_hash[upstream.id] = upstream
+end
+
+
+local function recive_upstream()
+    local res ,error =  reddis:read_reply()
+    if not res then
+        rock_core.log.error("recive_upstream  err : " ..  error)
+    end
+
+    local upstream_str = res[3]
+    local upstream = rock_core.json.decode_json(upstream_str)
+    put(upstream)
+end
+
 function _M.init_http_worker()
     timer_at(0,load_upstream)
-    init_upstream_cache()
+    init_upstream_argo_cache()
+    timer_at(0,subscribe_upstream) --- 订阅变更
+    timer_every(5,recive_upstream)  --- 接受消息
 end
+
+
 
 function _M.get_upstream(id)
     return upstream_hash[id]
 end
+
+
 
 --- set upstream
 function _M.run()
@@ -147,14 +176,13 @@ function _M.reload_upstream()
     load_upstream()
 end
 
---- 新增或者更新upstream
-function _M.put(upstream)
-    upstream_hash[upstream.id] = upstream
-end
 
 function _M.delete(id)
     upstream_hash[id] = nil
 end
+
+--- 新增或者更新upstream
+_M.put = put
 
 
 return _M

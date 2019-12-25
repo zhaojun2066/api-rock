@@ -53,8 +53,8 @@ function _M.post(router)
     if not res then
         return 500,{error_msg = err}
     end
-    ---logger(ERR,"req_body:" ..res)
     router.id = res.insert_id
+    ---todo  通知mq ，其他 集群可以接受更新本地cache
     action_cache("put",router)
     return 200, router
 end
