@@ -37,7 +37,6 @@ function _M.http_init_worker()
     if config.rock.enable_admin then
         admin_init.init_http_work() --- init admin
     end
-    rock_core.redis.init_http_worker()
     balancer.init_http_worker()
     service.init_http_worker()
     router.init_http_worker()

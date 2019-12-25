@@ -10,6 +10,8 @@ local rock_core = require('rock.core')
 local upstream_cache = require('rock.balancer')
 local ngx = ngx
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
+local redis = rock_core.redis.new()
+local upstream_key = "rock_upstream"
 
 local _M ={}
 
@@ -37,6 +39,16 @@ local function action_cache(action,data)
     end
 end
 
+local function puslish(action,data)
+    local msg = {
+        worker_id = ngx.worker.id(),
+        action = action,
+        data = data
+    }
+    redis:publish(upstream_key,rock_core.json.encode_json(msg))
+end
+
+
 --- add new router
 function _M.post(upstream)
     ---check data
@@ -52,6 +64,7 @@ function _M.post(upstream)
     end
     upstream.id = res.insert_id
     action_cache("put",upstream)
+    puslish("put",upstream)
     return 200, upstream
 end
 
@@ -81,6 +94,7 @@ function _M.delete(id)
         return 500,{error_msg = err}
     end
     action_cache("delete",id)
+    puslish("delete",id)
     return 200, res
 end
 
@@ -102,6 +116,7 @@ function _M.put(upstream)
         return 500,{error_msg = err}
     end
     action_cache("put",upstream)
+    puslish("put",upstream)
     return 200, upstream
 end
 

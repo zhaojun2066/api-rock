@@ -59,16 +59,33 @@ local function put(upstream)
     upstream_hash[upstream.id] = upstream
 end
 
+local function delete(id)
+    upstream_hash[id] = nil
+end
 
 local function recive_upstream()
     local res ,error =  reddis:read_reply()
     if not res then
         rock_core.log.error("recive_upstream  err : " ..  error)
+        return
     end
 
-    local upstream_str = res[3]
-    local upstream = rock_core.json.decode_json(upstream_str)
-    put(upstream)
+    local msg_str = res[3]
+    local msg = rock_core.json.decode_json(msg_str)
+    local worker_id = msg.worker_id
+    --- 如果是自己就不更新说明已经更新了
+    if worker_id ~= ngx.worker.id() then
+        local action = msg.action
+        local data = msg.data
+        if action and data then
+            if action == "put" then
+                put(data)
+             elseif action == "delete" then
+                delete(data)
+            end
+        end
+    end
+
 end
 
 function _M.init_http_worker()
@@ -79,10 +96,12 @@ function _M.init_http_worker()
 end
 
 
-
-function _M.get_upstream(id)
+local function get(id)
     return upstream_hash[id]
 end
+
+
+_M.get= get
 
 
 
@@ -99,14 +118,14 @@ function _M.run()
     elseif  matched_router.upstream_id then
 
     elseif  matched_router.service_id then
-        local matched_service = service.get_service(matched_router.service_id)
+        local matched_service = service.get(matched_router.service_id)
         if not matched_service then
             return rock_core.response.exit_error_msg(404,"service not found")
         end
         if  matched_service.upstream then
             upstream = matched_service.upstream
         elseif matched_service.upstream_id then
-            upstream = _M.get_upstream(matched_service.upstream_id)
+            upstream = get(matched_service.upstream_id)
         end
     end
     --- 未找到路由
@@ -177,9 +196,7 @@ function _M.reload_upstream()
 end
 
 
-function _M.delete(id)
-    upstream_hash[id] = nil
-end
+_M.delete = delete
 
 --- 新增或者更新upstream
 _M.put = put

@@ -11,6 +11,8 @@ local rock_core = require('rock.core')
 local router_cache = require('rock.router')
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
 
+local redis = rock_core.redis.new()
+local upstream_key = "rock_upstream"
 local _M ={}
 
 --- 添加路由
@@ -40,6 +42,15 @@ local function action_cache(action,data)
     end
 end
 
+local function puslish(action,data)
+    local msg = {
+        worker_id = ngx.worker.id(),
+        action = action,
+        data = data
+    }
+    redis:publish(upstream_key,rock_core.json.encode_json(msg))
+end
+
 --- add router
 function _M.post(router)
     ---check data
@@ -47,15 +58,16 @@ function _M.post(router)
     if not ok then
         return 400,err
     end
-    local router_value = quote_sql_str(rock_core.json.encode_json(router))
+    local router_str = rock_core.json.encode_json(router)
+    local router_value = quote_sql_str(router_str)
     local sql = "insert into router (`data`,created,updated) values("..router_value..",now(),now())"
     local res,err = rock_core.mysql.query(sql)
     if not res then
         return 500,{error_msg = err}
     end
     router.id = res.insert_id
-    ---todo  通知mq ，其他 集群可以接受更新本地cache
     action_cache("put",router)
+    puslish("put",router)
     return 200, router
 end
 
@@ -87,6 +99,7 @@ function _M.delete(id)
         return 500,{error_msg = err}
     end
     action_cache("delete",id)
+    puslish("delete",id)
     return 200, res
 end
 
@@ -108,6 +121,7 @@ function _M.put(router)
         return 500,{error_msg = err}
     end
     action_cache("put",router)
+    puslish("put",router)
     return 200, router
 end
 

@@ -107,15 +107,34 @@ local function put(router)
     router_hash[router.id] = router
     reload_routers()
 end
+
+local function delete(id)
+    router_hash[id] = nil
+    reload_routers()
+end
+
+
 local function recive_router()
     local res ,error =  reddis:read_reply()
     if not res then
         rock_core.log.error("recive_router  err : " ..  error)
     end
 
-    local router_str = res[3]
-    local router = rock_core.json.decode_json(router_str)
-    put(router)
+    local msg_str = res[3]
+    local msg = rock_core.json.decode_json(msg_str)
+    local worker_id = msg.worker_id
+    --- 如果是自己就不更新说明已经更新了
+    if worker_id ~= ngx.worker.id() then
+        local action = msg.action
+        local data = msg.data
+        if action and data then
+            if action == "put" then
+                put(data)
+            elseif action == "delete" then
+                delete(data)
+            end
+        end
+    end
 end
 
 function _M.init_http_worker()
@@ -131,11 +150,7 @@ end
 --- 新增或者更新router
 _M.put  = put
 
-function _M.delete(id)
-    router_hash[id] = nil
-    reload_routers()
-end
-
+_M.delete = delete
 
 
 function _M.match()
