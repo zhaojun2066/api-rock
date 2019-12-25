@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f39afaa9-77b4-4ed1-8e34-ee5e9dfc9f54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lua/rock/admin/init.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/admin/routers.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/admin/routers.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/admin/services.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/admin/services.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/admin/upstreams.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/admin/upstreams.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/app.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/app.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/balancer.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/balancer.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/mq.lua" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/router.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/router.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/service.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/service.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lua/rock/core/redis.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/core/redis.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" afterDir="false" />
@@ -35,52 +26,28 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lua/rock/balancer.lua">
+        <entry file="file://$PROJECT_DIR$/conf/config.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="86" column="7" lean-forward="true" selection-start-line="72" selection-start-column="4" selection-end-line="86" selection-end-column="7" />
-              <folding>
-                <element signature="n#_M.run#0" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="20" column="11" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lua/rock/router.lua">
+        <entry file="file://$PROJECT_DIR$/lua/rock/core/mysql.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1430">
-              <caret line="166" column="7" lean-forward="true" selection-start-line="166" selection-start-column="7" selection-end-line="166" selection-end-column="7" />
-              <folding>
-                <element signature="n#_M.get_router#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lua/rock/service.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
+            <state relative-caret-position="26">
+              <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+        <entry file="file://$PROJECT_DIR$/lua/rock/core/redis.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lua/rock/admin/routers.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="46" column="17" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="17" />
+            <state relative-caret-position="246">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
             </state>
           </provider>
         </entry>
@@ -124,7 +91,6 @@
         <option value="$PROJECT_DIR$/lua/rock/core/config.lua" />
         <option value="$PROJECT_DIR$/lua/rock/schema/schema_model.lua" />
         <option value="$PROJECT_DIR$/lua/rock/core/schema.lua" />
-        <option value="$PROJECT_DIR$/conf/config.yaml" />
         <option value="$PROJECT_DIR$/lua/rock/core/log.lua" />
         <option value="$PROJECT_DIR$/lua/rock/schema/service.lua" />
         <option value="$PROJECT_DIR$/lua/rock/core/util.lua" />
@@ -140,7 +106,6 @@
         <option value="$PROJECT_DIR$/lua/rock/core/mysql.lua" />
         <option value="$PROJECT_DIR$/lua/rock/mq.lua" />
         <option value="$PROJECT_DIR$/lua/rock/app.lua" />
-        <option value="$PROJECT_DIR$/lua/rock/core/redis.lua" />
         <option value="$PROJECT_DIR$/lua/rock/core/mq.lua" />
         <option value="$PROJECT_DIR$/lua/rock/core.lua" />
         <option value="$PROJECT_DIR$/lua/rock/admin/services.lua" />
@@ -150,6 +115,8 @@
         <option value="$PROJECT_DIR$/lua/rock/balancer.lua" />
         <option value="$PROJECT_DIR$/lua/rock/router.lua" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/conf/config.yaml" />
+        <option value="$PROJECT_DIR$/lua/rock/core/redis.lua" />
       </list>
     </option>
   </component>
@@ -212,7 +179,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577259358299" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577260026660" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../jianzhan_mall/code" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -397,13 +364,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/admin/init.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-97">
-          <caret line="30" column="40" lean-forward="true" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
@@ -421,24 +381,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="25" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/plugin.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/core/mysql.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="38" selection-start-line="38" selection-end-line="45" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -477,13 +423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/core/redis.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="53" column="34" lean-forward="true" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/core.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -519,13 +458,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/balancer.lua">
+    <entry file="file://$PROJECT_DIR$/lua/rock/service.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="86" column="7" lean-forward="true" selection-start-line="72" selection-start-column="4" selection-end-line="86" selection-end-column="7" />
-          <folding>
-            <element signature="n#_M.run#0" />
-          </folding>
+        <state relative-caret-position="92">
+          <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -539,17 +475,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/service.lua">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
+        <state relative-caret-position="902">
+          <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/lua/rock/admin/init.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        <state relative-caret-position="22">
+          <caret line="30" column="40" lean-forward="true" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/balancer.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="76" column="16" lean-forward="true" selection-start-line="76" selection-start-column="16" selection-end-line="76" selection-end-column="16" />
+          <folding>
+            <element signature="n#_M.run#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/core/mysql.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="20" column="11" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/core/redis.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>

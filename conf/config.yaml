@@ -13,6 +13,13 @@ mysql:
   max_idle_timeout: 30000
   pool_size: 50
 
+redis:
+  host: "10.12.40.224"
+  port: 3306
+  timeout: 3000 # ms
+  max_idle_timeout: 30000
+  pool_size: 50
+
 plugins:                          # plugin list
   - example-plugin
   - limit-req
