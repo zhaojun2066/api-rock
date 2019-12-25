@@ -3,7 +3,7 @@
 -- User: jufeng
 -- Date: 19/12/2019
 -- Time: 上午10:15
---  upstream crud  下游服务
+--  upstream crud  上游服务
 --
 local require = require
 local rock_core = require('rock.core')
