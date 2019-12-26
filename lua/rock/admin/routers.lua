@@ -8,11 +8,10 @@
 local require = require
 local ngx = ngx
 local rock_core = require('rock.core')
-local router_cache = require('rock.router')
+    local router_cache = require('rock.router')
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
 
-local redis = rock_core.redis.new()
-local upstream_key = "rock_upstream"
+local router_key = "rock_router"
 local _M ={}
 
 --- 添加路由
@@ -35,6 +34,7 @@ local function check(data)
 end
 
 local function action_cache(action,data)
+    rock_core.log.error("rock.admin.roouters.action_cache ok")
     if action == "put" then
         router_cache.put(data) --- 添加or更新cache
     elseif action == "delete" then
@@ -48,7 +48,13 @@ local function puslish(action,data)
         action = action,
         data = data
     }
-    redis:publish(upstream_key,rock_core.json.encode_json(msg))
+    rock_core.log.error("rock.admin.roouters.puslish start")
+    local redis =  rock_core.redis.new()
+    local res ,err = redis:publish(router_key,rock_core.json.encode_json(msg))
+    if not res then
+        rock_core.log.error("rock.admin.roouters.puslish: " .. err)
+    end
+
 end
 
 --- add router
@@ -82,7 +88,14 @@ function _M.get(id)
     if not res then
         return 500,{error_msg = err}
     end
-    local router = res[1].data
+    local router
+    if #res >=1 then
+        router = res[1].data
+    end
+    if not router then
+        return 200,{}
+    end
+    router = rock_core.json.decode_json(router)
     router.id = id
     return 200, router
 end
@@ -127,6 +140,7 @@ end
 
 
 function _M.list()
+    rock_core.log.error("rock.admin.roouters.list start")
     local sql = "select * from router limit 10000"
     local res,err = rock_core.mysql.query(sql)
     if not res then

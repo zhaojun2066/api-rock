@@ -10,9 +10,8 @@ local rock_core = require('rock.core')
 local upstream_cache = require('rock.balancer')
 local ngx = ngx
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
-local redis = rock_core.redis.new()
 local upstream_key = "rock_upstream"
-
+local tonumber = tonumber
 local _M ={}
 
 --- 添加上游服务
@@ -45,10 +44,13 @@ local function puslish(action,data)
         action = action,
         data = data
     }
+    local redis =  rock_core.redis.new()
     redis:publish(upstream_key,rock_core.json.encode_json(msg))
 end
 
-
+function _M.init_redis(red)
+    redis = red
+end
 --- add new router
 function _M.post(upstream)
     ---check data
@@ -78,9 +80,16 @@ function _M.get(id)
     if not res then
         return 500,{error_msg = err}
     end
-    local upstream = res[1].data
-    upstream.id = id
-    return 200, upstream
+    local router = res[1].data
+    if #res >=1 then
+        router = res[1].data
+    end
+    if not router then
+        return 200,{}
+    end
+    router = rock_core.json.decode_json(router)
+    router.id = id
+    return 200, router
 end
 
 function _M.delete(id)

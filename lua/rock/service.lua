@@ -33,27 +33,34 @@ local function load()
 end
 
 
-local reddis = rock_core.redis.new()
+local function get_redis()
+   return rock_core.redis.new()
+end
+
 local service_key = "rock_service"
-local function subscribe_service()
+local function subscribe_service(reddis)
     reddis:subscribe(service_key)
 end
 
 local function put(service)
     service_hash[service.id] = service
+    rock_core.log.error("recive_upstream=> " .. rock_core.json.encode_json(service))
 end
+
 
 local function delete(id)
     service_hash[id] = nil
 end
 
 
-local function recive_service()
+local function recive_service(reddis)
     local res ,error =  reddis:read_reply()
     if not res then
-        rock_core.log.error("recive_service  err : " ..  error)
+       --- rock_core.log.error("recive_service  err : " ..  error)
         return
     end
+
+    rock_core.log.error("recive_service=> " .. rock_core.json.encode_json(res))
 
     local msg_str = res[3]
     local msg = rock_core.json.decode_json(msg_str)
@@ -72,11 +79,15 @@ local function recive_service()
     end
 end
 
+local function subscribe_recive_revice()
+    local reddis = get_redis()
+    subscribe_service(reddis)
+    recive_service(reddis)
+end
 
 function _M.init_http_worker()
     timer_at(0,load)
-    timer_at(0,subscribe_service)
-    timer_every(5,recive_service)
+    timer_every(3,subscribe_recive_revice)
 end
 
 function _M.get(id)

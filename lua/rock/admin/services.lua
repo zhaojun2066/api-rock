@@ -10,8 +10,8 @@ local rock_core = require('rock.core')
 local service_cache = require('rock.service')
 local ngx = ngx
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
-local redis = rock_core.redis.new()
 local service_key = "rock_service"
+local tonumber = tonumber
 
 local _M ={}
 
@@ -38,6 +38,7 @@ local function puslish(action,data)
         action = action,
         data = data
     }
+    local redis =  rock_core.redis.new()
     redis:publish(service_key,rock_core.json.encode_json(msg))
 end
 
@@ -80,6 +81,13 @@ function _M.get(id)
         return 500,{error_msg = err}
     end
     local service = res[1].data
+    if #res >=1 then
+        service = res[1].data
+    end
+    if not service then
+        return 200,{}
+    end
+    service = rock_core.json.decode_json(service)
     service.id = id
     return 200, service
 end

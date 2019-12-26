@@ -21,5 +21,12 @@ end
 function _M.encode_json(table_obj)
     return encode_json(table_obj)
 end
+
+function _M.to_json_empty_array()
+    return encode_json(rapidjson.array())
+end
+function _M.to_json_empty_object()
+    return encode_json(rapidjson.object())
+end
 return _M
 

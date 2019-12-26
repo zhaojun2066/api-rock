@@ -16,7 +16,7 @@ local timer_at = ngx.timer.at
 local radix = require("resty.radixtree")
 local table_insert = table.insert
 local get_method = ngx.req.get_method
-local resty_lock = require ("resty.lock") -- 更新router需要加锁，work级别
+---local resty_lock = require ("resty.lock") -- 更新router需要加锁，work级别
 local timer_every = ngx.timer.every
 local router_key = "rock_router"
 
@@ -60,11 +60,11 @@ end
 
 local function reload_routers()
 
-    local lock, err = resty_lock:new("router_locks")
+   --[[ local lock, err = resty_lock:new("router_locks")
     if not lock then
         rock_core.log.error("failed to create lock: " .. err)
         return
-    end
+    end]]
 
     local router_array  = new_table(#router_hash,0)
     for _,router_data  in pairs(router_hash) do
@@ -86,10 +86,10 @@ local function reload_routers()
 
     routers = radix.new(router_array)
 
-    local ok, err = lock:unlock()
+   --[[ local ok, err = lock:unlock()
     if not ok then
         rock_core.log.error("failed unlock: " .. err)
-    end
+    end]]
 
 end
 
@@ -98,14 +98,12 @@ function _M.get_router()
 end
 
 
-local reddis = rock_core.redis.new()
 
-local function subscribe_router()
-    reddis:subscribe(router_key)
-end
+
 local function put(router)
     router_hash[router.id] = router
     reload_routers()
+    rock_core.log.error("rock.router.put().recive_router=> " .. rock_core.json.encode_json(router))
 end
 
 local function delete(id)
@@ -114,11 +112,14 @@ local function delete(id)
 end
 
 
-local function recive_router()
+local function recive_router(reddis)
     local res ,error =  reddis:read_reply()
     if not res then
-        rock_core.log.error("recive_router  err : " ..  error)
+        ---rock_core.log.error("rock.router.recive_router()  err : " ..  error)
+        return
     end
+
+    rock_core.log.error("rock.router.recive_router().recive_router=> " .. rock_core.json.encode_json(res))
 
     local msg_str = res[3]
     local msg = rock_core.json.decode_json(msg_str)
@@ -137,10 +138,23 @@ local function recive_router()
     end
 end
 
+local function get_redis ()
+   return rock_core.redis.new()
+end
+
+local function subscribe_router(reddis)
+    reddis:subscribe(router_key)
+end
+
+local function subscribe_recive_router()
+    local reddis = get_redis()
+    subscribe_router(reddis)
+    recive_router(reddis)
+end
+
 function _M.init_http_worker()
     timer_at(0,load_routers)
-    timer_at(0,subscribe_router)
-    timer_every(5,recive_router)
+    timer_every(3,subscribe_recive_router)
 end
 
 function _M.get(id)

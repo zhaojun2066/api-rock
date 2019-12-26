@@ -4,7 +4,7 @@ rock:
   enable_admin: true
 
 mysql:
-  host: "10.12.40.224"
+  host: ""
   port: 3306
   user: ""
   password: ""
@@ -14,8 +14,8 @@ mysql:
   pool_size: 50
 
 redis:
-  host: "10.12.40.224"
-  port: 3306
+  host: "127.0.0.1"
+  port: 6379
   timeout: 3000 # ms
   max_idle_timeout: 30000
   pool_size: 50

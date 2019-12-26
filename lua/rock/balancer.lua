@@ -50,25 +50,34 @@ local function init_upstream_argo_cache()
     upstream_argo_cache = c
 end
 
-local reddis = rock_core.redis.new()
-local function subscribe_upstream()
+local function get_redis()
+    return rock_core.redis.new()
+   --- rock_core.log.error("rock.balancer.init_redis reddis=> " .. reddis)
+end
+
+local function subscribe_upstream(reddis)
     reddis:subscribe(upstream_key)
 end
 
 local function put(upstream)
     upstream_hash[upstream.id] = upstream
+    rock_core.log.error("rock.balancer.recive_upstream=> " .. rock_core.json.encode_json(upstream))
 end
 
 local function delete(id)
     upstream_hash[id] = nil
 end
 
-local function recive_upstream()
+
+
+local function recive_upstream(reddis)
     local res ,error =  reddis:read_reply()
     if not res then
-        rock_core.log.error("recive_upstream  err : " ..  error)
+        ----rock_core.log.error("recive_upstream  err : " ..  error)
         return
     end
+
+    rock_core.log.error("rock.balancer.recive_upstream=> " .. rock_core.json.encode_json(res))
 
     local msg_str = res[3]
     local msg = rock_core.json.decode_json(msg_str)
@@ -88,12 +97,18 @@ local function recive_upstream()
 
 end
 
+local function subscribe_recive()
+    local reddis = get_redis()
+    subscribe_upstream(reddis)
+    recive_upstream(reddis)
+end
+
 function _M.init_http_worker()
     timer_at(0,load_upstream)
     init_upstream_argo_cache()
-    timer_at(0,subscribe_upstream) --- 订阅变更
-    timer_every(5,recive_upstream)  --- 接受消息
+    timer_every(3,subscribe_recive)
 end
+
 
 
 local function get(id)

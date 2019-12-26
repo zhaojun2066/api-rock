@@ -24,7 +24,7 @@ function _M.new()
     red:set_timeout(redis_config.timeout) -- 1 sec red:set_timeouts(connect_timeout, send_timeout, read_timeout)
     local ok, err = red:connect(redis_config.host, redis_config.port)
     if not ok then
-        log.error("redis failed to connect: ".. err)
+        log.error("rock.core.redis.new() failed to connect: ".. err)
         return nil
     end
 
@@ -32,6 +32,7 @@ function _M.new()
         red = red,
         redis_config = redis_config
     }
+    --red:set("dog", "an animal")
     return  setmetatable(self,mt)
 end
 
@@ -50,7 +51,7 @@ function _M:subscribe(key)
     ---subscribe("dog")
     ---  正常返回 ["subscribe","dog",1]
     end
-    self:close()
+   --- self:close()
     return res,err
 end
 
@@ -67,10 +68,10 @@ end
 function _M:read_reply()
     local res, err = self.red:read_reply()
     if not res then
-        log.error(" failed to read reply: " .. err)
+        ---log.error(" failed to read reply: " .. err)
         ---  正常返回 ["message","dog","Hello"], 取得时候，取最后一个Hello ，
     end
-    self:close()
+    --self:close()
     return res,err
 end
 

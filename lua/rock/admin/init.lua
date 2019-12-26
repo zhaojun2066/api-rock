@@ -14,6 +14,8 @@ local str_lower = string.lower
 local router
 local get_method = ngx.req.get_method
 local rock_core = require('rock.core')
+local type = type
+local tonumber = tonumber
 
 local models = {
     routers = require("rock.admin.routers"),
@@ -33,28 +35,29 @@ local function run()
     local uri = ngx.var.uri
     local segs ,err = ngx_re.split(uri,"/")
     if not segs then
-        return rock_core.response.exit(404)
+        return rock_core.response.exit_error_msg(404,"uri err")
     end
-
     local id = segs[5]
     local method = str_lower(get_method());
     local req_body
     --- 如果没有id ，说明是get 或者是post ，在判断如果是get 就是 list 方法了
-    if not id then
-        if method == "get" then
-            method = "list"
+    if id then
+        local num = tonumber(id)-- 不能转换为数字，说课就是list
+        if method == "get" and not num then
+            method = id
         end
     end
     --- 检查admin下的模块
     local model_name = segs[4] --- get model name
     local model = models[model_name]
     if not model then
-        return rock_core.response.exit(404)
+        return rock_core.response.exit_error_msg(404,"model is not found: "..model_name)
     end
     --- 检查该模块是否有该方法
     if not model[method] then
-        return rock_core.response.exit(404)
+        return rock_core.response.exit(404,"moethod not found: " .. method)
     end
+    rock_core.log.error("rock.admin.init.run method-> " .. method)
     ngx.req.read_body()
     local req_body = ngx.req.get_body_data()
     if  req_body then
