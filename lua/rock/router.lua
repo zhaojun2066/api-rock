@@ -94,7 +94,7 @@ local function reload_routers()
 end
 
 function _M.get_router()
-    return router
+    return routers
 end
 
 

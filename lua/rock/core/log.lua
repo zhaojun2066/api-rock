@@ -12,8 +12,8 @@ local WARN = ngx.WARN
 
 local _M = {}
 
-function _M.error(msg)
-    logger(ERR,msg)
+function _M.error(...)
+    logger(ERR,...)
 end
 
 function _M.warn(msg)

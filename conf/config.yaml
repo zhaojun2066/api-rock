@@ -21,10 +21,11 @@ redis:
   pool_size: 50
 
 plugins:                          # plugin list
-  - example-plugin
   - limit-req
   - limit-count
   - limit-conn
+  - basic-auth
+  - oauth2
   - key-auth
   - prometheus
   - node-status

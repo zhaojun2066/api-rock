@@ -14,6 +14,7 @@ local admin_init = require('rock.admin.init')
 local balancer = require("rock.balancer")
 local service = require("rock.service")
 local router = require("rock.router")
+local plugin = require("rock.plugin")
 
 local _M = {}
 
@@ -40,17 +41,22 @@ function _M.http_init_worker()
     balancer.init_http_worker()
     service.init_http_worker()
     router.init_http_worker()
+    plugin.init_http_worker()
     --- todo 初始化所有的plugin,pcall 加载
 
 end
 
-function _M.http_rewrite_phase() end
+----function _M.http_rewrite_phase() end
 
 
 function _M.http_access_phase()
     --- todo run access plugins  第一步 执行 acces 阶段的pluain access 方法
     --- 根据参数匹配router，然后返回可用的upstream,设置ngx.ctx 中，然后在balancer 阶段 取出，然后设置
     router.match()
+    --- 过滤匹配router 的所有过滤器
+    plugin.filter()
+
+    --- run plugin
 
 
 
