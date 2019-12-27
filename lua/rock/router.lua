@@ -149,12 +149,21 @@ end
 local function subscribe_recive_router()
     local reddis = get_redis()
     subscribe_router(reddis)
+    ---timer_every(3,recive_router,reddis)
     recive_router(reddis)
+    --[[timer_every(3, function()
+        if not reddis then
+            reddis = get_redis()
+            subscribe_router(reddis)
+        end
+        recive_router(reddis)
+    end)]]
 end
 
 function _M.init_http_worker()
     timer_at(0,load_routers)
     timer_every(3,subscribe_recive_router)
+   --- subscribe_recive_router()
 end
 
 function _M.get(id)

@@ -48,9 +48,6 @@ local function puslish(action,data)
     redis:publish(upstream_key,rock_core.json.encode_json(msg))
 end
 
-function _M.init_redis(red)
-    redis = red
-end
 --- add new router
 function _M.post(upstream)
     ---check data
@@ -80,7 +77,7 @@ function _M.get(id)
     if not res then
         return 500,{error_msg = err}
     end
-    local router = res[1].data
+    local router
     if #res >=1 then
         router = res[1].data
     end
@@ -124,9 +121,14 @@ function _M.put(upstream)
     if not res then
         return 500,{error_msg = err}
     end
-    action_cache("put",upstream)
-    puslish("put",upstream)
-    return 200, upstream
+    if res.affected_rows and res.affected_rows>0 then
+        action_cache("put",upstream)
+        puslish("put",upstream)
+        return 200, upstream
+    end
+
+    return 500,{error_msg = "the upstream not found for id= " ..id_value}
+
 end
 
 

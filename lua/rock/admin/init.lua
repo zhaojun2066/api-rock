@@ -55,7 +55,7 @@ local function run()
     end
     --- 检查该模块是否有该方法
     if not model[method] then
-        return rock_core.response.exit(404,"moethod not found: " .. method)
+        return rock_core.response.exit_error_msg(404,"moethod not found: " .. method)
     end
     rock_core.log.error("rock.admin.init.run method-> " .. method)
     ngx.req.read_body()

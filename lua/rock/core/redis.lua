@@ -40,8 +40,9 @@ function _M:close()
     local ok ,err = self.red:set_keepalive(self.redis_config.max_idle_timeout, self.redis_config.pool_size)
     if not ok then
         log.error("redis failed to set_keepalive: ".. err)
-        _M.new() -- 重新初始化
+        return _M.new() -- 重新初始化
     end
+    return nil
 end
 
 function _M:subscribe(key)
@@ -51,7 +52,7 @@ function _M:subscribe(key)
     ---subscribe("dog")
     ---  正常返回 ["subscribe","dog",1]
     end
-   --- self:close()
+   --- self:close(),subscribe  状态 不能够进行 set_keepalive
     return res,err
 end
 
@@ -60,14 +61,18 @@ function _M:publish(key,value_str)
     if not res then
         log.error("failed to subscribe: " .. err)
         ---   red2:publish("dog", "Hello")
+        return nil,err
     end
+    --- 成功之后在放入连接池中
     self:close()
+
     return res,err
 end
 
 function _M:read_reply()
     local res, err = self.red:read_reply()
     if not res then
+        return nil,err
         ---log.error(" failed to read reply: " .. err)
         ---  正常返回 ["message","dog","Hello"], 取得时候，取最后一个Hello ，
     end

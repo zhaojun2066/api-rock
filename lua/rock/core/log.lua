@@ -8,11 +8,16 @@
 
 local logger = ngx.log                                                 --- function ngx log
 local ERR = ngx.ERR
+local WARN = ngx.WARN
 
 local _M = {}
 
 function _M.error(msg)
     logger(ERR,msg)
+end
+
+function _M.warn(msg)
+    logger(WARN,msg)
 end
 
 return _M

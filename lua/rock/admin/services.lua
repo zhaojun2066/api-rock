@@ -80,7 +80,7 @@ function _M.get(id)
     if not res then
         return 500,{error_msg = err}
     end
-    local service = res[1].data
+    local service
     if #res >=1 then
         service = res[1].data
     end
@@ -125,9 +125,12 @@ function _M.put(service)
     if not res then
         return 500,{error_msg = err}
     end
-    action_cache("put",service)
-    puslish("put",service)
-    return 200, service
+    if res.affected_rows and res.affected_rows>0 then
+        action_cache("put",service)
+        puslish("put",service)
+        return 200, service
+    end
+    return 500,{error_msg = "the service not found for id= " ..id_value}
 end
 
 

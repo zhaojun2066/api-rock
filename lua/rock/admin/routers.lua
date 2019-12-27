@@ -133,9 +133,12 @@ function _M.put(router)
     if not res then
         return 500,{error_msg = err}
     end
-    action_cache("put",router)
-    puslish("put",router)
-    return 200, router
+    if res.affected_rows and res.affected_rows>0 then
+        action_cache("put",router)
+        puslish("put",router)
+        return 200, router
+    end
+    return 500,{error_msg = "the router not found for id= " ..id_value}
 end
 
 
