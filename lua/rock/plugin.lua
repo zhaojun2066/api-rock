@@ -97,8 +97,12 @@ local function filter()
         local plugin_name = plugin.name
         local p = filter_plugins_hash[plugin_name]
         if p then
-            table_insert(filter_plugins,p)
+            plugin.conf_paramms = p
+            table_insert(filter_plugins,plugin)
         end
+    end
+    if #filter>0 then
+        ngx.ctx.plugins = filter_plugins
     end
 end
 
