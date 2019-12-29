@@ -61,6 +61,17 @@ local function load_plugins()
     end
 end
 
+local function run_plugins(phase)
+    local plugins = ngx.ctx.plugins
+    if not plugins then
+        return
+    end
+    for _,plugin in ipairs(plugins) do
+        if plugin[phase] then
+            plugin[phase](plugin.conf)
+        end
+    end
+end
 
 local function filter()
     ----合并plugin
@@ -97,7 +108,7 @@ local function filter()
         local plugin_name = plugin.name
         local p = filter_plugins_hash[plugin_name]
         if p then
-            plugin.conf_paramms = p
+            plugin.conf = p
             table_insert(filter_plugins,plugin)
         end
     end
@@ -112,6 +123,7 @@ _M.init_http_worker = function()
     load_plugins()
 end
 
+_M.run = run_plugins
 _M.filer = filter
 
 return _M

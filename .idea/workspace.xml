@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f39afaa9-77b4-4ed1-8e34-ee5e9dfc9f54" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/lua/rock/app.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/app.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lua/rock/plugin.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/plugin.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" afterDir="false" />
@@ -29,8 +30,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lua/rock/plugin.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="101" column="11" lean-forward="true" selection-start-line="96" selection-start-column="8" selection-end-line="101" selection-end-column="11" />
+            <state relative-caret-position="-148">
+              <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+              <folding>
+                <element signature="n#load_plugins#0" />
+                <element signature="n#run_plugins#0" />
+                <element signature="e#1907#3080#0" />
+                <element signature="e#2434#2467#1" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lua/rock/app.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-194">
-              <caret line="51" column="29" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="29" />
+            <state relative-caret-position="72">
+              <caret line="44" selection-start-line="44" selection-end-line="44" />
             </state>
           </provider>
         </entry>
@@ -78,6 +85,15 @@
                 <element signature="e#2898#3208#0" />
                 <element signature="e#3541#3971#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lua/rock/admin/init.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-638">
+              <caret line="21" column="12" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -154,8 +170,8 @@
         <option value="$PROJECT_DIR$/conf/config.yaml" />
         <option value="$PROJECT_DIR$/lua/rock/core/log.lua" />
         <option value="$PROJECT_DIR$/lua/rock/router.lua" />
-        <option value="$PROJECT_DIR$/lua/rock/app.lua" />
         <option value="$PROJECT_DIR$/lua/rock/plugin.lua" />
+        <option value="$PROJECT_DIR$/lua/rock/app.lua" />
       </list>
     </option>
   </component>
@@ -199,6 +215,13 @@
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="rock" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="admin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="api-rock" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="rock" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="core" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
@@ -225,7 +248,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577516740754" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577599946991" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -289,7 +312,7 @@
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="DB Execution Console" />
-      <window_info anchor="bottom" id="Terminal" sideWeight="0.49932975" weight="0.32080925" />
+      <window_info anchor="bottom" id="Terminal" sideWeight="0.49932975" weight="0.17196532" />
       <window_info anchor="bottom" id="Event Log" sideWeight="0.50067025" side_tool="true" weight="0.32080925" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
@@ -476,13 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/admin/init.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-396">
-          <caret line="21" column="12" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/core.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -535,6 +551,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/schema/schema_model.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
+          <folding>
+            <element signature="e#2643#2826#0" />
+            <element signature="e#2898#3208#0" />
+            <element signature="e#3541#3971#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/admin/init.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-638">
+          <caret line="21" column="12" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/router.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-352">
@@ -550,27 +585,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/app.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-194">
-          <caret line="51" column="29" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/schema/schema_model.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="134" selection-start-line="134" selection-end-line="134" />
-          <folding>
-            <element signature="e#2643#2826#0" />
-            <element signature="e#2898#3208#0" />
-            <element signature="e#3541#3971#0" />
-          </folding>
+        <state relative-caret-position="72">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/plugin.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="101" column="11" lean-forward="true" selection-start-line="96" selection-start-column="8" selection-end-line="101" selection-end-column="11" />
+        <state relative-caret-position="-148">
+          <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+          <folding>
+            <element signature="n#load_plugins#0" />
+            <element signature="n#run_plugins#0" />
+            <element signature="e#1907#3080#0" />
+            <element signature="e#2434#2467#1" />
+          </folding>
         </state>
       </provider>
     </entry>

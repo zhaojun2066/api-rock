@@ -42,8 +42,6 @@ function _M.http_init_worker()
     service.init_http_worker()
     router.init_http_worker()
     plugin.init_http_worker()
-    --- todo 初始化所有的plugin,pcall 加载
-
 end
 
 ----function _M.http_rewrite_phase() end
@@ -55,11 +53,8 @@ function _M.http_access_phase()
     router.match()
     --- 过滤匹配router 的所有过滤器
     plugin.filter()
-
-    --- run plugin
-
-
-
+    plugin.run("rewrite")
+    plugin.run("access")
 end
 
 
@@ -71,15 +66,18 @@ end
 
 function _M.http_body_filter_phase()
     --- todo run all body filter
+    plugin.run("body_filter")
 end
 
 
 function _M.http_header_filter_phase()
     --- todo run all header filter
+    plugin.run("header_filter")
 end
 
 function _M.http_log_phase()
     --- todo run log filter
+    plugin.run("log")
 end
 
 
