@@ -8,7 +8,7 @@
 local require = require
 local ngx = ngx
 local rock_core = require('rock.core')
-    local router_cache = require('rock.router')
+local router_cache = require('rock.router')
 local quote_sql_str = ngx.quote_sql_str --- 防止sql注入
 
 local router_key = "rock_router"
@@ -51,6 +51,7 @@ local function puslish(action,data)
     rock_core.log.error("rock.admin.roouters.puslish start")
     local redis =  rock_core.redis.new()
     local res ,err = redis:publish(router_key,rock_core.json.encode_json(msg))
+    ---todo 失败要有重试机制
     if not res then
         rock_core.log.error("rock.admin.roouters.puslish: " .. err)
     end

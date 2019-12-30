@@ -7,4 +7,5 @@ return {
     response = require("rock.core.response"),
     json     = require("rock.core.json"),
     redis     = require("rock.core.redis"),
+    token     = require("rock.core.token"),
 }

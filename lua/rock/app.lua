@@ -65,18 +65,18 @@ end
 
 
 function _M.http_body_filter_phase()
-    --- todo run all body filter
+    ---  run all body filter
     plugin.run("body_filter")
 end
 
 
 function _M.http_header_filter_phase()
-    --- todo run all header filter
+    ---  run all header filter
     plugin.run("header_filter")
 end
 
 function _M.http_log_phase()
-    --- todo run log filter
+    ---  run log filter
     plugin.run("log")
 end
 
@@ -88,7 +88,6 @@ function _M.http_admin()
         admin_router = admin_init.get()
     end
 
-    -- core.log.info("uri: ", get_var("uri"), " method: ", get_method())
     local ok = admin_router:dispatch(ngx.var.uri, {method = get_mothed()})
     if not ok then
         ngx_exit(404)

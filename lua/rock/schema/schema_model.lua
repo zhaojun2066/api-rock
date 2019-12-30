@@ -32,6 +32,15 @@ local ip_def = {
 _M.ip_def = ip_def
 
 
+_M.global_plugins = {
+    type = "object",
+    properties = {
+        plugins = plugins_schema
+    },
+    required = {"plugins"},
+    additionalProperties = false,
+}
+
 local id_schema = {
     anyOf = {
         {
