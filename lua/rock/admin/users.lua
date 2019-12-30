@@ -24,7 +24,13 @@ function _M.get_user(username,pwd)
     end
     username = quote_sql_str(username)
     pwd = quote_sql_str(pwd)
-    local sql = "select * from user where username = ".. username .. " and password = " .. pwd
+    local sql =  "select * from user where 1=1  "
+    if username then
+        sql = sql .. " and username = ".. username
+    end
+    if pwd then
+        sql = sql .. " and password = ".. pwd
+    end
     local res,err = rock_core.mysql.query(sql)
     if not res then
         return nil,{error_msg = err}

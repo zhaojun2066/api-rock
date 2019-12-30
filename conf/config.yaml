@@ -24,8 +24,7 @@ plugins:                          # plugin list
   - limit-req
   - limit-count
   - limit-conn
-  - basic-auth
-  - oauth2
+  #- basic-auth
   - key-auth
   - prometheus
   - node-status

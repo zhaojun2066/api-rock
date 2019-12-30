@@ -44,12 +44,12 @@ function _M.access(conf)
        return rock_core.response.exit_error_msg(401,"No Authorization")
    end
 
-    ---生成token
-    local res,err= rock_core.token.create(user)
+    ---生成token,先不和token组合使用
+   --[[ local res,err= rock_core.token.create(user)
     if not res then
         return rock_core.response.exit_error_msg(500,"Authorization server error")
     end
-    return rock_core.response.exit(200,res)
+    return rock_core.response.exit(200,res)]]
 end
 
 return _M
