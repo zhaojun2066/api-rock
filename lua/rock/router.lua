@@ -9,6 +9,7 @@
 local require = require
 local rock_core = require('rock.core')
 local new_table = require ("table.new")
+local rock_plugin = require ("rock.plugin")
 local ipairs = ipairs
 local pairs  = pairs
 local ngx = ngx
@@ -26,6 +27,25 @@ local router_hash
 local routers
 
 
+local function load_plugins_routers(router_array)
+    local plugin_routers = rock_plugin.get_plugin_routers()
+    if plugin_routers then
+        for _,v  in ipairs(plugin_routers)  do
+            local router_data = rock_core.json.decode_json(v.data)
+            table_insert(router_array,{
+                paths = router_data.uris or router_data.uri,
+                methods = router_data.methods,
+                hosts = router_data.hosts or router_data.host,
+                remote_addrs = router_data.remote_addrs
+                        or router_data.remote_addr,
+                vars = router_data.vars,
+                filter_fun = router_data.filter_fun or function() end,
+                handler = v.handler or function() end
+            })
+        end
+    end
+end
+
 local function load_routers()
     local sql = "select * from router limit 10000"
     local res,err,sqlstate = rock_core.mysql.query(sql)
@@ -36,7 +56,7 @@ local function load_routers()
     end
 
     router_hash = new_table(0,#res)
-    local router_array  = new_table(#res,0)
+    local router_array  = new_table(#res+10,0)
 
     for _,v  in ipairs(res)  do
         local router_data = rock_core.json.decode_json(v.data)
@@ -55,8 +75,11 @@ local function load_routers()
         })
     end
 
+    load_plugins_routers(router_array)
+
     routers = radix.new(router_array)
 end
+
 
 local function reload_routers()
 
@@ -66,7 +89,7 @@ local function reload_routers()
         return
     end]]
 
-    local router_array  = new_table(#router_hash,0)
+    local router_array  = new_table(#router_hash+10,0)
     for _,router_data  in pairs(router_hash) do
         if  router_data then
             table_insert(router_array,{
@@ -83,7 +106,7 @@ local function reload_routers()
             })
         end
     end
-
+    load_plugins_routers(router_array)
     routers = radix.new(router_array)
 
    --[[ local ok, err = lock:unlock()

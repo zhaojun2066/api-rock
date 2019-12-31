@@ -14,7 +14,6 @@
     key-auth
     jwt-auth
     basic-auth
-    oauth2
     ab-test
     limit-req
     limit-conn

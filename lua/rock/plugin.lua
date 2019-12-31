@@ -22,7 +22,7 @@ local pcall = pcall
 local pkg_name_prefix = "rock.plugins."
 
 local local_plugins = table_new(20,0)
-
+local plugin_routers = table_new(10,0)
 local function sort_plugin(l, r)
     return l.priority > r.priority
 end
@@ -50,6 +50,10 @@ local function load_plugins()
             return
         end
         plugin.name = name
+        local api =  plugin.api --- plugin 需要的外部api path ，也是需要注册到routers里
+        if api then
+            table_insert(plugin_routers,api)
+        end
         table_insert(local_plugins,plugin)
         if plugin.init then
             plugin.init()
@@ -117,10 +121,16 @@ local function filter()
     end
 end
 
+
+
 local _M = {}
 
 _M.init_http_worker = function()
     load_plugins()
+end
+
+function _M.get_plugin_routers()
+    return plugin_routers
 end
 
 _M.run = run_plugins

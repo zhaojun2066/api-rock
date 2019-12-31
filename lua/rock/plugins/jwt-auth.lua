@@ -16,7 +16,15 @@ local resty_cookie = require("resty.cookie")
 local jwt = require ("resty.jwt")
 local exp_time = 3600*24*30  --- 30天
 
-local _M = {}
+local user_cache
+
+--todo cahce user to lrucache
+
+
+local _M = {
+    version = 0.1,
+    priority = 3000  --- 权重，越大越靠前
+}
 
 
 local function get_request_token()
@@ -58,7 +66,10 @@ local function get_user()
     if #res_array>1 then
         local username = res_array[1]
         local pwd = res_array[2]
-        user = users.get_user(username,pwd)
+        if not username or not pwd then
+            return nil, "username and pws is nil "
+        end
+        user = users.get_user_from_cache(username,pwd)
     end
     if not user then
         return nil, "No Authorization"
@@ -68,7 +79,7 @@ local function get_user()
 
 end
 
-function _M.generate_token()
+local function generate_token()
     local user,err = get_user()
     if not user then
         return rock_core.response.exit_error_msg(401,err)
@@ -110,8 +121,23 @@ function _M.access()
     local user = users.get_user(username)
     jwt_obj = jwt:verify_jwt_obj(user.password, jwt_obj)
     if not jwt_obj.verified then
-        return rock_core.response.exit_error_msg(401,jwt_obj.reason )
+        return rock_core.response.exit_error_msg(401,jwt_obj.reason)
     end
+
+end
+
+---- 生成jwt
+function _M.api()
+    return {
+        {
+            methods = {"GET"},
+            uri = "/rock/plugin/jwt/token",
+            handler = generate_token,
+        }
+    }
+end
+
+function _M.init()
 
 end
 
