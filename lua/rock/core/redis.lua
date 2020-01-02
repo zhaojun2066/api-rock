@@ -56,6 +56,15 @@ function _M:subscribe(key)
     return res,err
 end
 
+
+function _M:evel(...)
+    local res = self.red: evel(...)
+    if res then
+        self:close()
+    end
+    return res
+end
+
 function _M:publish(key,value_str)
     local res, err = self.red:publish(key,value_str)
     if not res then

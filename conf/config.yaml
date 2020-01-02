@@ -22,6 +22,7 @@ redis:
 
 plugins:                          # plugin list
   - limit-req
+  - limit-distribution
   - basic-auth
   - jwt-auth
   - key-auth
