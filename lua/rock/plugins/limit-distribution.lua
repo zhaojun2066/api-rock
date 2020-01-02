@@ -37,10 +37,10 @@ function _M.access(conf)
         return rock_core.response.exit(500,"no router")
     end
     local router_id = matched_router.id
-
+    local key =  router_id .. (conf.key or "")
     local redis = rock_core.redis.new()
 
-    local c = redis:evel(script,1,router_id,rate)
+    local c = redis:evel(script,1,key,rate)
     if not c or c==0 then
         return rock_core.response.exit(503,"limited")
     end
