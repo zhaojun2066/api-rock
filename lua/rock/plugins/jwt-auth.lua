@@ -99,14 +99,14 @@ local function generate_token()
             }
         }
     )
-    return rock_core.response.exit_msg(401,jwt_token)
+    return rock_core.response.exit_msg(200,jwt_token)
 end
 
 ---- check token
 function _M.access()
     local jwt,err = get_request_token()
     if not jwt then
-        return rock_core.response.exit_error_msg(401,"JWT is not null")
+        return rock_core.response.exit_error_msg(401,err)
     end
 
     local jwt_obj = jwt:load_jwt(jwt)
@@ -118,7 +118,10 @@ function _M.access()
     if not username then
         return rock_core.response.exit_error_msg(401,"Jmissing username in JWT token")
     end
-    local user = users.get_user(username)
+    local user,err = users.get_user_from_cache(username)
+    if not user then
+        return rock_core.response.exit_error_msg(401,err)
+    end
     jwt_obj = jwt:verify_jwt_obj(user.password, jwt_obj)
     if not jwt_obj.verified then
         return rock_core.response.exit_error_msg(401,jwt_obj.reason)

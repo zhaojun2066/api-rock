@@ -22,13 +22,11 @@ redis:
 
 plugins:                          # plugin list
   - limit-req
-  - limit-count
-  - limit-conn
-  #- basic-auth
+  - basic-auth
+  - jwt-auth
   - key-auth
   - prometheus
   - node-status
-  - jwt-auth
   - zipkin
   - ip-restriction
   - grpc-transcode

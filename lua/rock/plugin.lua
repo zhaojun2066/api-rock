@@ -29,6 +29,7 @@ end
 
 local function load_plugins()
     table_clear(local_plugins)
+    table_clear(plugin_routers)
     local local_config = rock_core.config.local_conf(true) --- 强制刷新
     local plugin_name_array = local_config.plugins
     if not plugin_name_array then

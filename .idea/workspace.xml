@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f39afaa9-77b4-4ed1-8e34-ee5e9dfc9f54" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/conf/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/admin/users.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/admin/users.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/app.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/app.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lua/rock/plugin.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/plugin.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lua/rock/plugins/jwt-auth.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/plugins/jwt-auth.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/router.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/router.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" afterDir="false" />
@@ -35,20 +33,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lua/rock/plugin.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2002">
-              <caret line="101" column="41" selection-start-line="101" selection-start-column="35" selection-end-line="101" selection-end-column="41" />
-              <folding>
-                <element signature="n#run_plugins#0" />
-              </folding>
+            <state relative-caret-position="307">
+              <caret line="83" column="49" lean-forward="true" selection-start-line="83" selection-start-column="3" selection-end-line="83" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lua/rock/plugins/limit-req.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1078">
+              <caret line="55" column="70" lean-forward="true" selection-start-line="55" selection-start-column="70" selection-end-line="55" selection-end-column="70" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="51" column="41" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lua/rock/app.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="43" column="66" selection-start-line="43" selection-start-column="66" selection-end-line="43" selection-end-column="66" />
+            <state relative-caret-position="494">
+              <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -56,8 +78,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lua/rock/plugins/jwt-auth.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="134" column="19" selection-start-line="134" selection-start-column="12" selection-end-line="134" selection-end-column="19" />
+            <state relative-caret-position="-324">
+              <caret line="8" selection-start-line="8" selection-end-line="16" selection-end-column="36" />
+              <folding>
+                <element signature="n#get_user#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lua/rock/admin/users.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="72" column="27" lean-forward="true" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lua/rock/core/token.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -65,8 +108,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lua/rock/router.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="754">
-              <caret line="104" column="19" lean-forward="true" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
+            <state relative-caret-position="380">
+              <caret line="114" column="9" lean-forward="true" selection-start-line="110" selection-end-line="114" selection-end-column="9" />
               <folding>
                 <element signature="n#recive_router#0" />
                 <element signature="n#subscribe_router#0" />
@@ -146,15 +189,17 @@
         <option value="$PROJECT_DIR$/lua/rock/admin/routers.lua" />
         <option value="$PROJECT_DIR$/lua/rock/core.lua" />
         <option value="$PROJECT_DIR$/lua/rock/core/token.lua" />
-        <option value="$PROJECT_DIR$/conf/config.yaml" />
         <option value="$PROJECT_DIR$/lua/rock/plugins/basic-auth.lua" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/conf/nginx.conf" />
         <option value="$PROJECT_DIR$/lua/rock/admin/users.lua" />
-        <option value="$PROJECT_DIR$/lua/rock/plugins/jwt-auth.lua" />
-        <option value="$PROJECT_DIR$/lua/rock/plugin.lua" />
         <option value="$PROJECT_DIR$/lua/rock/router.lua" />
         <option value="$PROJECT_DIR$/lua/rock/app.lua" />
+        <option value="$PROJECT_DIR$/lua/rock/plugin.lua" />
+        <option value="$PROJECT_DIR$/lua/rock/plugins/jwt-auth.lua" />
+        <option value="$PROJECT_DIR$/lua/rock/plugins/limit.lua" />
+        <option value="$PROJECT_DIR$/conf/nginx.conf" />
+        <option value="$PROJECT_DIR$/lua/rock/plugins/limit-req.lua" />
+        <option value="$PROJECT_DIR$/conf/config.yaml" />
       </list>
     </option>
   </component>
@@ -182,6 +227,11 @@
             <path>
               <item name="api-rock" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="api-rock" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="conf" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="api-rock" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="api-rock" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
@@ -195,7 +245,7 @@
               <item name="api-rock" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="rock" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="core" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="admin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="api-rock" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -203,13 +253,6 @@
               <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="rock" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="plugins" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="api-rock" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="api-rock" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="rock" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="schema" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -219,7 +262,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577777722904" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577935693823" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -274,7 +317,7 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2546917" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -291,7 +334,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32947975" />
       <window_info anchor="bottom" id="DB Execution Console" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067025" side_tool="true" weight="0.32080925" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49932975" weight="0.07947977" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49932975" weight="0.24855492" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Flutter Performance" order="12" side_tool="true" />
@@ -326,7 +369,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32947975" />
       <window_info anchor="bottom" id="DB Execution Console" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067025" side_tool="true" weight="0.32080925" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49932975" visible="true" weight="0.07947977" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49932975" visible="true" weight="0.24855492" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Flutter Performance" order="12" side_tool="true" />
@@ -479,31 +522,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/core/token.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/mime.types">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="30" column="12" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/plugins/basic-auth.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="18" column="33" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="18" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -521,20 +543,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="92" column="47" lean-forward="true" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/admin/users.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" selection-start-line="9" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
@@ -547,8 +555,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/router.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="104" column="19" lean-forward="true" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
+        <state relative-caret-position="380">
+          <caret line="114" column="9" lean-forward="true" selection-start-line="110" selection-end-line="114" selection-end-column="9" />
           <folding>
             <element signature="n#recive_router#0" />
             <element signature="n#subscribe_router#0" />
@@ -557,27 +565,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/plugin.lua">
+    <entry file="file://$PROJECT_DIR$/lua/rock/core/token.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2002">
-          <caret line="101" column="41" selection-start-line="101" selection-start-column="35" selection-end-line="101" selection-end-column="41" />
-          <folding>
-            <element signature="n#run_plugins#0" />
-          </folding>
+        <state relative-caret-position="154">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/rock/plugins/jwt-auth.lua">
+    <entry file="file://$PROJECT_DIR$/lua/rock/plugins/basic-auth.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="134" column="19" selection-start-line="134" selection-start-column="12" selection-end-line="134" selection-end-column="19" />
+        <state relative-caret-position="198">
+          <caret line="18" column="33" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="18" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/plugin.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="83" column="49" lean-forward="true" selection-start-line="83" selection-start-column="3" selection-end-line="83" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/app.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="43" column="66" selection-start-line="43" selection-start-column="66" selection-end-line="43" selection-end-column="66" />
+        <state relative-caret-position="494">
+          <caret line="58" column="24" lean-forward="true" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="51" column="41" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/admin/users.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="72" column="27" lean-forward="true" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/plugins/jwt-auth.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324">
+          <caret line="8" selection-start-line="8" selection-end-line="16" selection-end-column="36" />
+          <folding>
+            <element signature="n#get_user#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/rock/plugins/limit-req.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1078">
+          <caret line="55" column="70" lean-forward="true" selection-start-line="55" selection-start-column="70" selection-end-line="55" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>
