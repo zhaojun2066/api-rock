@@ -16,7 +16,7 @@ local script = "local key = 'rate:limit:' .. KEY[1]  "..
                 "  return 0 "..
                 "else "..
                     "redis.call('INCRBY', key,'1')"..
-                    "redis.call('expire', key,'1')"..
+                    "redis.call('expire', key,'2')"..   --- 两秒后过期，多加一秒，执行命令可能会耗时
                     "return current + 1"..
                 "end"
 

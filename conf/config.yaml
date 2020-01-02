@@ -1,5 +1,5 @@
 rock:
-  node_listen: 9080              # APISIX listening port
+  node_listen: 9080
   enable_heartbeat: false
   enable_admin: true
 
@@ -25,15 +25,4 @@ plugins:                          # plugin list
   - limit-distribution
   - basic-auth
   - jwt-auth
-  - key-auth
-  - prometheus
-  - node-status
-  - zipkin
-  - ip-restriction
-  - grpc-transcode
-  - serverless-pre-function
-  - serverless-post-function
-  - openid-connect
-  - proxy-rewrite
-  - redirect
-  - response-rewrite
+  - ab-test
