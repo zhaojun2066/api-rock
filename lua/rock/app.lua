@@ -50,7 +50,6 @@ end
 
 function _M.http_access_phase()
     ---todo  执行全局的plugins
-    --- todo run access plugins  第一步 执行 acces 阶段的pluain access 方法
     --- 根据参数匹配router，然后返回可用的upstream,设置ngx.ctx 中，然后在balancer 阶段 取出，然后设置
     router.match()
     --- 过滤匹配router 的所有过滤器

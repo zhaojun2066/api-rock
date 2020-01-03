@@ -78,6 +78,17 @@ function _M:publish(key,value_str)
     return res,err
 end
 
+function _M:unsubscribe(key)
+    local res, err = self.red:unsubscribe(key)
+    if not res then
+        log.error("failed to unsubscribe: " .. err)
+        ---   red2:publish("dog", "Hello")
+        return nil,err
+    end
+    --- 成功之后在放入连接池中
+    self:close()
+end
+
 function _M:read_reply()
     local res, err = self.red:read_reply()
     if not res then
