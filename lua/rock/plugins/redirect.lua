@@ -3,7 +3,7 @@
 -- User: 86186
 -- Date: 3/1/2020
 -- Time: 上午10:14
--- url 重定向
+-- url 重定向 301 302
 --
 
 local ngx = ngx
