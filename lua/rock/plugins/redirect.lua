@@ -11,6 +11,7 @@ local require = require
 local rock_core = require "rock.core"
 local ngx_re = ngx.re
 local pairs = pairs
+local table_concat = table.concat
 
 
 
@@ -27,7 +28,7 @@ local schema = {
 ---vars  可以是ngx.var 里的key value
 local _M = {
     version = "1,0",
-    name = "rewrite"
+    name = "redirect"
 }
 
 local function match_vars(vars)
@@ -64,7 +65,12 @@ function _M.rewrite(conf)
     local code = conf.code
     local to_uri = conf.to_uri
     local request_uri = ngx.var.uri
-
+    local args = {
+        ngx.var.is_args,
+        ngx.var.args
+    }
+    local args_str= table_concat(args,"")
+    to_uri = to_uri ..  args_str
     if uri_reg and not vars then
         local match_group = ngx_re.match(request_uri,uri_reg)
         if match_group then
