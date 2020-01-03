@@ -25,4 +25,4 @@ plugins:                          # plugin list
   - limit-distribution
   - basic-auth
   - jwt-auth
-  - ab-test
+  - rewrite
