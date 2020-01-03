@@ -4,7 +4,8 @@
 -- Date: 3/1/2020
 -- Time: 上午10:14
 -- url 重定向 301 302
---
+-- 应该是一个全局的配置，匹配上就重定向到第一个
+-- 会有很多租匹配关系，不应配置很多
 
 local ngx = ngx
 local require = require
@@ -70,7 +71,7 @@ function _M.rewrite(conf)
         ngx.var.args
     }
     local args_str= table_concat(args,"")
-    to_uri = to_uri ..  args_str
+    to_uri = to_uri .. args_str
     if uri_reg and not vars then
         local match_group = ngx_re.match(request_uri,uri_reg)
         if match_group then

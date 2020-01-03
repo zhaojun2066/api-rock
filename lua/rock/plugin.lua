@@ -15,49 +15,60 @@ local table_clear = table.clear
 local table_insert = table.insert
 local table_sort = table.sort
 local table_new = table.new
-local table_nkeys = table.nkeys
 local ipairs = ipairs
 local pairs = pairs
 local pcall = pcall
 local pkg_name_prefix = "rock.plugins."
 
-local local_plugins = table_new(20,0)
+local local_plugins = table_new(20,0) --- router plugin
+local local_global_plugins = table_new(10,0)-- global plugin
 local plugin_routers = table_new(10,0)
 local function sort_plugin(l, r)
     return l.priority > r.priority
 end
 
 local function load_plugins()
+    table_clear(local_global_plugins)
     table_clear(local_plugins)
     table_clear(plugin_routers)
     local local_config = rock_core.config.local_conf(true) --- 强制刷新
-    local plugin_name_array = local_config.plugins
-    if not plugin_name_array then
+    local plugin_config_array = local_config.plugins
+    if not plugin_config_array then
         rock_core.log.error("rock.plugin.load_plugins() faild to load plugins" )
         return
     end
-    for _,name in ipairs(plugin_name_array) do
-        local pkg_name = pkg_name_prefix .. name
-        --- 装载之前先卸载
-        pkg_loaded[pkg_name] = nil
-        local ok, plugin = pcall(require, pkg_name)
-        if not ok then
-            rock_core.log.error("rock.plugin.load_plugins() failed to load plugin [", name, "] err: ", plugin)
-            return
-        end
-        if not plugin.priority then
-            rock_core.log.error("rock.plugin.load_plugins() invalid plugin [", name,
-                "], missing field: priority")
-            return
-        end
-        plugin.name = name
-        local api =  plugin.api --- plugin 需要的外部api path ，也是需要注册到routers里
-        if api then
-            table_insert(plugin_routers,api)
-        end
-        table_insert(local_plugins,plugin)
-        if plugin.init then
-            plugin.init()
+    for _,plugin_cofing in ipairs(plugin_config_array) do
+
+        local abled = plugin_cofing.disabled or false
+        if abled then
+            local name = plugin_cofing.name
+            local pkg_name = pkg_name_prefix .. name
+            --- 装载之前先卸载
+            pkg_loaded[pkg_name] = nil
+            local ok, plugin = pcall(require, pkg_name)
+            if not ok then
+                rock_core.log.error("rock.plugin.load_plugins() failed to load plugin [", name, "] err: ", plugin)
+                return
+            end
+            if not plugin.priority then
+                rock_core.log.error("rock.plugin.load_plugins() invalid plugin [", name,
+                    "], missing field: priority")
+                return
+            end
+            plugin.name = name
+            local api =  plugin.api --- plugin 需要的外部api path ，也是需要注册到routers里
+            if api then
+                table_insert(plugin_routers,api)
+            end
+            local scope = plugin_cofing.scope
+            if scope and scope == "global" then
+                table_insert(local_global_plugins,plugin)
+            else
+                table_insert(local_plugins,plugin)
+            end
+            if plugin.init then
+                plugin.init()
+            end
         end
     end
 
@@ -72,6 +83,14 @@ local function run_plugins(phase)
         return
     end
     for _,plugin in ipairs(plugins) do
+        if plugin[phase] then
+            plugin[phase](plugin.conf)
+        end
+    end
+end
+
+local function run_global_plugins(phase)
+    for _,plugin in ipairs(local_global_plugins) do
         if plugin[phase] then
             plugin[phase](plugin.conf)
         end
@@ -134,8 +153,10 @@ function _M.get_plugin_routers()
     return plugin_routers
 end
 
+_M.run_global_plugins = run_global_plugins
 _M.run = run_plugins
 _M.filer = filter
+
 
 return _M
 

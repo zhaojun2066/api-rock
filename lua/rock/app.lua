@@ -49,8 +49,9 @@ end
 
 
 function _M.http_access_phase()
+    plugin.run_global_plugins("rewrite")
+    plugin.run_global_plugins("access")
     ---todo  执行全局的plugins
-    --- 根据参数匹配router，然后返回可用的upstream,设置ngx.ctx 中，然后在balancer 阶段 取出，然后设置
     router.match()
     --- 过滤匹配router 的所有过滤器
     plugin.filter()
@@ -60,24 +61,25 @@ end
 
 
 function _M.http_balancer_phase()
-    ---  set  upstream
+    plugin.run_global_plugins("balancer")
+    plugin.run("balancer")
     balancer.run()
 end
 
 
 function _M.http_body_filter_phase()
-    ---  run all body filter
+    plugin.run_global_plugins("body_filter")
     plugin.run("body_filter")
 end
 
 
 function _M.http_header_filter_phase()
-    ---  run all header filter
+    plugin.run_global_plugins("header_filter")
     plugin.run("header_filter")
 end
 
 function _M.http_log_phase()
-    ---  run log filter
+    plugin.run_global_plugins("log")
     plugin.run("log")
 end
 

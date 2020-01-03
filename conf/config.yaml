@@ -21,8 +21,18 @@ redis:
   pool_size: 50
 
 plugins:                          # plugin list
-  - limit-req
-  - limit-distribution
-  - basic-auth
-  - jwt-auth
-  - redirect
+  - name: limit-req
+    disabled: true
+    scope: router
+  - name: limit-distribution
+    disabled: true
+    scope: router
+  - basic-auth:
+    disabled: false
+    scope: global
+  - name: jwt-auth
+    disabled: false
+    scope: global
+  - name: redirect
+    disabled: false
+    scope: global
