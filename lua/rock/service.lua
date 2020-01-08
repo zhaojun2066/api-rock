@@ -19,7 +19,7 @@ local service_hash
 
 local function load()
     local sql = "select * from service limit 5000"
-    local res,err,sqlstate = rock_core.mysql.query(sql)
+    local res,err = rock_core.mysql.query(sql)
     ---- todo 如果失败要有重试机制
     if not res then
         rock_core.log.error(err)
@@ -28,7 +28,9 @@ local function load()
     service_hash = new_table(0,#res)
 
     for _,v  in ipairs(res)  do
-        service_hash[v.id] = rock_core.json.decode_json(v.data)
+        local data = rock_core.json.decode_json(v.data)
+        data.id = v.id
+        service_hash[v.id] = data
     end
 end
 

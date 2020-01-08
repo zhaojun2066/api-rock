@@ -39,7 +39,7 @@ local function load_plugins_routers(router_array)
                 remote_addrs = router_data.remote_addrs
                         or router_data.remote_addr,
                 vars = router_data.vars,
-                filter_fun = router_data.filter_fun or function() end,
+               -- filter_fun = router_data.filter_fun or nil,
                 handler = v.handler or function() end
             })
         end
@@ -48,7 +48,7 @@ end
 
 local function load_routers()
     local sql = "select * from router limit 10000"
-    local res,err,sqlstate = rock_core.mysql.query(sql)
+    local res,err = rock_core.mysql.query(sql)
     ---- todo 如果失败要有重试机制
     if not res then
         rock_core.log.error(err)
@@ -60,6 +60,7 @@ local function load_routers()
 
     for _,v  in ipairs(res)  do
         local router_data = rock_core.json.decode_json(v.data)
+        router_data.id = v.id
         router_hash[v.id] = router_data
         table_insert(router_array,{
             paths = router_data.uris or router_data.uri,
@@ -68,7 +69,7 @@ local function load_routers()
             remote_addrs = router_data.remote_addrs
                     or router_data.remote_addr,
             vars = router_data.vars,
-            filter_fun = router_data.filter_fun or function() end,
+           -- filter_fun = router_data.filter_fun or function() end,
             handler = function ()
                 ngx.ctx.matched_router = router_data
             end
@@ -78,6 +79,10 @@ local function load_routers()
     load_plugins_routers(router_array)
 
     routers = radix.new(router_array)
+   --[[ for _,v in ipairs(router_array)  do
+        rock_core.log.error("rock.router.router_array=> " .. rock_core.json.encode_json(v))
+    end]]
+
 end
 
 
@@ -99,7 +104,7 @@ local function reload_routers()
                 remote_addrs = router_data.remote_addrs
                         or router_data.remote_addr,
                 vars = router_data.vars,
-                filter_fun = router_data.filter_fun or function() end,
+               -- filter_fun = router_data.filter_fun or function() end,
                 handler = function ()
                     ngx.ctx.matched_router = router_data
                 end
@@ -198,7 +203,8 @@ function _M.match()
     match_opts.host = ngx.var.host
     match_opts.remote_addr = rock_core.util.get_ip()
     match_opts.vars = ngx.var
-
+    rock_core.log.error("ngx.var.uri " ..ngx.var.uri)
+    rock_core.log.error("ngx.get_method() " ..get_method())
     local ok = routers:dispatch(ngx.var.uri, match_opts)
     if not ok then
         rock_core.log.error("not find any matched route")

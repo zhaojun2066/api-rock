@@ -23,7 +23,8 @@ local script = "local key = 'rate:limit:' .. KEY[1]  "..
 
 local _M = {
     veriosn = "1.0",
-    name = "limit-distribution"
+    name = "limit-distribution",
+    priority = 3000  --- 权重，越大越靠前
 }
 
 

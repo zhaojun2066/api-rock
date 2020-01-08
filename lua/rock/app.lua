@@ -45,7 +45,7 @@ function _M.http_init_worker()
 
 end
 
-----function _M.http_rewrite_phase() end
+function _M.http_rewrite_phase() end
 
 
 function _M.http_access_phase()

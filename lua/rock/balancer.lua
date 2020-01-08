@@ -19,7 +19,8 @@ local timer_every = ngx.timer.every
 local service = require("rock.service")
 local lrucache = require ("resty.lrucache")
 local upstream_key = "rock_upstream"
-
+local string_char = string.char
+local string_gsub = string.gsub
 
 local _M = {}
 local upstream_hash
@@ -28,7 +29,7 @@ local upstream_argo_cache
 
 local function load_upstream()
     local sql = "select * from upstream limit 10000"
-    local res,err,sqlstate = rock_core.mysql.query(sql)
+    local res,err = rock_core.mysql.query(sql)
     ---- todo 如果失败要有重试机制
     if not res then
         rock_core.log.error(err)
@@ -38,7 +39,9 @@ local function load_upstream()
     upstream_hash = new_table(0,#res)
 
     for _,v  in ipairs(res)  do
-        upstream_hash[v.id] = rock_core.json.decode_json(v.data)
+        local data = rock_core.json.decode_json(v.data)
+        data.id = v.id
+        upstream_hash[v.id] = data
     end
 end
 
@@ -131,7 +134,7 @@ function _M.run()
     if matched_router.upstream then
         upstream = matched_router.upstream
     elseif  matched_router.upstream_id then
-
+        upstream = get(matched_router.upstream_id)
     elseif  matched_router.service_id then
         local matched_service = service.get(matched_router.service_id)
         if not matched_service then
@@ -148,46 +151,41 @@ function _M.run()
         return rock_core.response.exit_error_msg(404,"upstream not found")
     end
 
-    local nodes = upstream.nodes
-    local up_nodes = new_table(0, #upstream.nodes)
-
-    for addr, weight in pairs(nodes) do
-        --- local ip, port = rock_core.util.parse_addr(addr)
-        --- todo 是否健康 ip port
-        up_nodes[addr] = weight
-    end
-
-    local type = nodes.type -- "chash", "roundrobin"
+    local up_nodes = upstream.nodes
+    local type = upstream.type -- "chash", "roundrobin"
     local server
+    local router_id = matched_router.id
     if type == "roundrobin" then
-        local cache_key ="rr_" .. upstream.id
-        local get = upstream_argo_cache:get(cache_key)
-        if not get then
-            local picker_server = function()
-                local picker = roundrobin:new(up_nodes)
-                return picker:find()
-            end
-            upstream_argo_cache:set(cache_key,picker_server,300) ---ttl is second
-            server = picker_server()
-        else
-            server = get()
+        local cache_key ="rr_" .. router_id
+        local picker = upstream_argo_cache:get(cache_key)
+        if not picker then
+            picker = roundrobin:new(up_nodes)
+            upstream_argo_cache:set(cache_key,picker,300) ---ttl is second
         end
+        server = picker:find()
     else
-        local cache_key ="ch_" .. upstream.id
-        local hash_key = upstream.key
-        local get = upstream_argo_cache:get(cache_key)
-        if not get then
-            local picker_server = function()
-                local picker = resty_chash:new(up_nodes)
-                --- todo get hash_key
-                local id = picker:find(ngx.var[hash_key])
-                return up_nodes[id]
-            end
-            upstream_argo_cache:set(cache_key,picker_server,300) ---ttl is second
-            server = picker_server()
-        else
-            server = get()
+        local str_null = string_char(0)
+        local servers, nodes = {}, {}
+        for serv, weight in pairs(up_nodes) do
+            --- local ip, port = rock_core.util.parse_addr(addr)
+            --- todo 是否健康 ip port
+            local id = string_gsub(serv, ":", str_null)
+            servers[id] = serv
+            nodes[id] = weight
         end
+        local cache_key ="ch_" .. router_id
+        local hash_key = upstream.key
+        if not hash_key then
+            return rock_core.response.exit_error_msg(502,"hash_key is not config ")
+        end
+
+        local picker = upstream_argo_cache:get(cache_key)
+        if not picker then
+            picker = resty_chash:new(nodes)
+            upstream_argo_cache:set(cache_key,picker,300) ---ttl is second
+        end
+        local id = picker:find(ngx.var[hash_key])
+        server = servers[id]
     end
 
     local ip, port ,err= rock_core.util.parse_addr(server)
@@ -196,7 +194,7 @@ function _M.run()
         return rock_core.response.exit_error_msg(502,"failed to set server peer: "..err)
     end
 
-
+    ---rock_core.log.error("set_current_peer: ", ip,":",port)
     local ok, err = ngx_balancer.set_current_peer( ip, port )
     if not ok then
         rock_core.log.error("failed to set server peer: ", err)

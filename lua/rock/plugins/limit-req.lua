@@ -31,7 +31,8 @@ local schema = {
 
 local _M = {
     version = 1.0,
-    name = "limit-req"
+    name = "limit-req",
+    priority = 3000  --- 权重，越大越靠前
 }
 local function limiting(limit,conf)
     local key = ngx.var[conf.key]

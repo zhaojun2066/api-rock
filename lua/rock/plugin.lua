@@ -60,6 +60,7 @@ local function load_plugins()
             if api then
                 table_insert(plugin_routers,api)
             end
+
             local scope = plugin_cofing.scope
             if scope and scope == "global" then
                 table_insert(local_global_plugins,plugin)
@@ -74,6 +75,9 @@ local function load_plugins()
 
     if #local_plugins > 1 then
         table_sort(local_plugins, sort_plugin)
+    end
+    if #local_global_plugins > 1 then
+        table_sort(local_global_plugins, sort_plugin)
     end
 end
 
@@ -128,7 +132,7 @@ local function filter()
 
     ---  相当于按照之前的排序
     local filter_plugins = table_new(32,0)
-    for _,plugin in ipairs(load_plugins) do
+    for _,plugin in ipairs(local_plugins) do
         local plugin_name = plugin.name
         local p = filter_plugins_hash[plugin_name]
         if p then
@@ -136,7 +140,7 @@ local function filter()
             table_insert(filter_plugins,plugin)
         end
     end
-    if #filter>0 then
+    if #filter_plugins>0 then
         ngx.ctx.plugins = filter_plugins
     end
 end
@@ -155,7 +159,7 @@ end
 
 _M.run_global_plugins = run_global_plugins
 _M.run = run_plugins
-_M.filer = filter
+_M.filter = filter
 
 
 return _M

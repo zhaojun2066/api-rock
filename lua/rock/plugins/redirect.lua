@@ -29,7 +29,8 @@ local schema = {
 ---vars  可以是ngx.var 里的key value
 local _M = {
     version = "1,0",
-    name = "redirect"
+    name = "redirect",
+    priority = 3000  --- 权重，越大越靠前
 }
 
 local function match_vars(vars)
@@ -87,6 +88,11 @@ function _M.rewrite(conf)
             return ngx.redirect(to_uri,code)
         end
     end
+end
+
+--- 存入 匹配规则
+function _M.api()
+
 end
 
 return _M

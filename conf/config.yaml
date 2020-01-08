@@ -4,10 +4,10 @@ rock:
   enable_admin: true
 
 mysql:
-  host: ""
+  host: "10.12.40.224"
   port: 3306
-  user: ""
-  password: ""
+  user: "openplatform"
+  password: "q1w2e3r4ys"
   database: "rock"
   timeout: 3000 # ms
   max_idle_timeout: 30000
@@ -27,7 +27,7 @@ plugins:                          # plugin list
   - name: limit-distribution
     disabled: true
     scope: router
-  - basic-auth:
+  - name: basic-auth
     disabled: false
     scope: global
   - name: jwt-auth
