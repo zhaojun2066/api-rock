@@ -1,4 +1,33 @@
 
+### schema
+##### router
+    {
+    	"id":37,
+    	"methods": ["GET"],
+    	"uri": "/hello",
+    	"upstream": {
+    		"nodes": {
+    			"10.12.52.23:8666": 1,
+    			"10.12.52.23:8665": 1
+    		},
+    		"type": "chash", ----- "chash", "roundrobin"
+    		"key": "arg_name"--- ngx.var[key]
+    	}
+    }
+
+##### upstream
+          {
+        		"nodes": {
+        			"10.12.52.23:8666": 1,
+        			"10.12.52.23:8665": 1
+        		},
+        		"type": "chash", ----- "chash", "roundrobin"
+        		"key": "arg_name"  --- ngx.var[key]
+        	}
+##### service
+
+
+##### dep
     /usr/local/openresty/luajit/bin/luarocks install  rapidjson 0.6.1-1
     /usr/local/openresty/luajit/bin/luarocks install  lua-resty-ipmatcher
     /usr/local/openresty/luajit/bin/luarocks install  lua-resty-radixtree
@@ -10,14 +39,10 @@
     
 ### plugins
     redirect 
-    rewrite
-    key-auth
     jwt-auth
     basic-auth
     ab-test
     limit-req
-    limit-conn
-    limit-count
     limit-distribution
     stat
     ip-restriction ip white block list

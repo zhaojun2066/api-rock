@@ -30,6 +30,13 @@ function _M.exit(code,table_body)
     end
 end
 
+function _M.exit_code(code)
+    if code then
+        ngx.status = code
+    end
+    return ngx.exit(code)
+end
+
 function _M.exit_error_msg(code,error_msg)
     ngx_resp.add_header("Content-Type","application/json;charset=utf-8")
     if code then

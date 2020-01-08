@@ -148,7 +148,7 @@ function _M.run()
     end
     --- 未找到路由
     if not upstream then
-        return rock_core.response.exit_error_msg(404,"upstream not found")
+        return rock_core.response.exitexit_code(404)
     end
 
     local up_nodes = upstream.nodes
@@ -176,7 +176,8 @@ function _M.run()
         local cache_key ="ch_" .. router_id
         local hash_key = upstream.key
         if not hash_key then
-            return rock_core.response.exit_error_msg(502,"hash_key is not config ")
+            rock_core.log.error("hash_key is not config ")
+            return rock_core.response.exit_code(502,"hash_key is not config ")
         end
 
         local picker = upstream_argo_cache:get(cache_key)
@@ -191,14 +192,14 @@ function _M.run()
     local ip, port ,err= rock_core.util.parse_addr(server)
     if err then
         rock_core.log.error("failed to set server peer: ", err)
-        return rock_core.response.exit_error_msg(502,"failed to set server peer: "..err)
+        return rock_core.response.exit_code(502)
     end
 
-    ---rock_core.log.error("set_current_peer: ", ip,":",port)
+    rock_core.log.error("set_current_peer: ", ip,":",port)
     local ok, err = ngx_balancer.set_current_peer( ip, port )
     if not ok then
         rock_core.log.error("failed to set server peer: ", err)
-        return rock_core.response.exit_error_msg(502,"failed to set server peer: "..err)
+        return rock_core.response.exit_code(502)
     end
 
 end

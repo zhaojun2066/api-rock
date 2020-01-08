@@ -203,12 +203,12 @@ function _M.match()
     match_opts.host = ngx.var.host
     match_opts.remote_addr = rock_core.util.get_ip()
     match_opts.vars = ngx.var
-    rock_core.log.error("ngx.var.uri " ..ngx.var.uri)
-    rock_core.log.error("ngx.get_method() " ..get_method())
+   -- rock_core.log.error("ngx.var.uri " ..ngx.var.uri)
+   -- rock_core.log.error("ngx.get_method() " ..get_method())
     local ok = routers:dispatch(ngx.var.uri, match_opts)
     if not ok then
         rock_core.log.error("not find any matched route")
-        return ngx.exit(404)
+        return rock_core.response.exit_msg(404,"not find any matched route for current uri")
     end
 
     return true
