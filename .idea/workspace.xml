@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f39afaa9-77b4-4ed1-8e34-ee5e9dfc9f54" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/../upstream-test/src/main/java/com/jufeng/test/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" afterDir="false" />
@@ -40,14 +38,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="205">
-                <caret line="100" column="12" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
+              <first_editor relative-caret-position="293">
+                <caret line="104" column="6" selection-start-line="104" selection-start-column="6" selection-end-line="104" selection-end-column="6" />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="106" column="39" selection-start-line="106" selection-start-column="21" selection-end-line="106" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -135,11 +151,11 @@
         <option value="$PROJECT_DIR$/lua/rock/router.lua" />
         <option value="$PROJECT_DIR$/lua/rock/service.lua" />
         <option value="$PROJECT_DIR$/lua/rock/admin/services.lua" />
-        <option value="$PROJECT_DIR$/conf/config.yaml" />
         <option value="$PROJECT_DIR$/lua/rock/plugins/limit-req.lua" />
         <option value="$PROJECT_DIR$/lua/rock/plugin.lua" />
         <option value="$PROJECT_DIR$/lua/rock/balancer.lua" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/conf/config.yaml" />
       </list>
     </option>
   </component>
@@ -218,7 +234,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578555471020" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578555566164" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -525,20 +541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="106" column="39" selection-start-line="106" selection-start-column="21" selection-end-line="106" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="36" column="18" lean-forward="true" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/plugins/redirect.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -590,10 +592,24 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="205">
-            <caret line="100" column="12" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
+          <first_editor relative-caret-position="293">
+            <caret line="104" column="6" selection-start-line="104" selection-start-column="6" selection-end-line="104" selection-end-column="6" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="106" column="39" selection-start-line="106" selection-start-column="21" selection-end-line="106" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
         </state>
       </provider>
     </entry>

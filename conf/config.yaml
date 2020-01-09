@@ -4,10 +4,10 @@ rock:
   enable_admin: true
 
 mysql:
-  host: "10.12.40.224"
+  host: ""
   port: 3306
-  user: "openplatform"
-  password: "q1w2e3r4ys"
+  user: ""
+  password: ""
   database: "rock"
   timeout: 3000 # ms
   max_idle_timeout: 30000
