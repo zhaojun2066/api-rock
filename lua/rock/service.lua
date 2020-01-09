@@ -12,6 +12,7 @@ local ipairs = ipairs
 local ngx = ngx
 local timer_at = ngx.timer.at
 local timer_every = ngx.timer.every
+local tonumber = tonumber
 
 
 local _M = {}
@@ -29,8 +30,9 @@ local function load()
 
     for _,v  in ipairs(res)  do
         local data = rock_core.json.decode_json(v.data)
-        data.id = v.id
-        service_hash[v.id] = data
+        local id = tonumber(v.id)
+        data.id = id
+        service_hash[id] = data
     end
 end
 

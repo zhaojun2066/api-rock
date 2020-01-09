@@ -25,7 +25,24 @@
         		"key": "arg_name"  --- ngx.var[key]
         	}
 ##### service
-
+    {
+    	"plugins": {
+    		"limit-req": {
+    			"rate": 10,
+    			"burst": 5,
+    			"key":"arg_name"
+    		}
+    	},
+    	"upstream": {
+    		"nodes": {
+    			"10.12.52.23:8665": 1,
+    			"10.12.52.23:8666": 1
+    		},
+    		"type": "roundrobin"
+    	},
+    	"id": 1
+    
+    }
 
 ##### dep
     /usr/local/openresty/luajit/bin/luarocks install  rapidjson 0.6.1-1

@@ -40,7 +40,7 @@ local function load_plugins()
     for _,plugin_cofing in ipairs(plugin_config_array) do
 
         local abled = plugin_cofing.disabled or false
-        if abled then
+        if not abled then
             local name = plugin_cofing.name
             local pkg_name = pkg_name_prefix .. name
             --- 装载之前先卸载
@@ -86,9 +86,11 @@ local function run_plugins(phase)
     if not plugins then
         return
     end
-    for _,plugin in ipairs(plugins) do
+    for _,plugin_obj in ipairs(plugins) do
+        local plugin = plugin_obj["plugin"]
         if plugin[phase] then
-            plugin[phase](plugin.conf)
+            --rock_core.log.error("filter plugin => " .. rock_core.json.encode_json(plugin_obj["conf"]))
+            plugin[phase](plugin_obj["conf"])
         end
     end
 end
@@ -96,7 +98,7 @@ end
 local function run_global_plugins(phase)
     for _,plugin in ipairs(local_global_plugins) do
         if plugin[phase] then
-            plugin[phase](plugin.conf)
+            plugin[phase]()
         end
     end
 end
@@ -134,10 +136,13 @@ local function filter()
     local filter_plugins = table_new(32,0)
     for _,plugin in ipairs(local_plugins) do
         local plugin_name = plugin.name
-        local p = filter_plugins_hash[plugin_name]
-        if p then
-            plugin.conf = p
-            table_insert(filter_plugins,plugin)
+        local conf = filter_plugins_hash[plugin_name]
+        if conf then
+            local filter_plugin = {}
+            filter_plugin["conf"] = conf
+            filter_plugin["plugin"] = plugin
+            rock_core.log.error("filter plugin => " .. rock_core.json.encode_json(conf))
+            table_insert(filter_plugins,filter_plugin)
         end
     end
     if #filter_plugins>0 then

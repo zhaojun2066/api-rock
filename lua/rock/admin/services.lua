@@ -22,7 +22,7 @@ local _M ={}
 
 local function check(data)
     if not data then
-        return nil, {error_msg = " route is not null"}
+        return nil, {error_msg = " json is not null"}
     end
     local check_status = rock_core.schema.check_service(data)
     if not check_status or check_status == false then

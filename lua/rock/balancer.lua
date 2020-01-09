@@ -5,6 +5,7 @@
 -- Time: 上午10:37
 --  初始化上游服务 upstream
 --
+----todo  更新完upstream 应该删除关联的router 的cache
 local require = require
 local roundrobin  = require("resty.roundrobin")
 local resty_chash = require("resty.chash")
@@ -32,6 +33,7 @@ local function load_upstream()
     local sql = "select * from upstream limit 10000"
     local res,err = rock_core.mysql.query(sql)
     ---- todo 如果失败要有重试机制
+    ---rock_core.log.error("init  upstream_hash res=> " .. rock_core.json.encode_json(res))
     if not res then
         rock_core.log.error(err)
         return
@@ -44,6 +46,7 @@ local function load_upstream()
         local id = tonumber(v.id)
         data.id = id
         upstream_hash[id] = data
+        --rock_core.log.error("init  upstream_hash[id]=> " .. rock_core.json.encode_json(upstream_hash[id]))
     end
 end
 
@@ -140,9 +143,9 @@ function _M.run()
     end
     --- router.upstream> router.upstream_id > router.service_id> service.upstream> service.upstream_id
     local upstream
-    rock_core.log.error("matched_router=> " .. rock_core.json.encode_json(matched_router))
-    rock_core.log.error("upstream_hash=> " .. rock_core.json.encode_json(upstream_hash))
-    rock_core.log.error("matched_router.upstream_id=> " .. matched_router.upstream_id)
+    --rock_core.log.error("matched_router=> " .. rock_core.json.encode_json(matched_router))
+    --rock_core.log.error("upstream_hash=> " .. rock_core.json.encode_json(upstream_hash))
+    --rock_core.log.error("matched_router.upstream_id=> " .. matched_router.upstream_id)
     if matched_router.upstream then
         upstream = matched_router.upstream
     elseif  matched_router.upstream_id then

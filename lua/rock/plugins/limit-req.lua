@@ -34,8 +34,7 @@ local _M = {
     name = "limit-req",
     priority = 3000  --- 权重，越大越靠前
 }
-local function limiting(limit,conf)
-    local key = ngx.var[conf.key]
+local function limiting(limit,key)
     local delay , err = limit:incoming(key,true)
     if not delay then
         if err == "rejected" then
@@ -88,7 +87,7 @@ function _M.access(conf)
     if not limit then
         return rock_core.response.exit_error_msg(500,err)
     end
-    limiting(limit)
+    limiting(limit,conf.key)
 end
 
 function _M.init()

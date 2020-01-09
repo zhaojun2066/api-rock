@@ -22,17 +22,17 @@ redis:
 
 plugins:                          # plugin list
   - name: limit-req
-    disabled: true
+    disabled: false
     scope: router
   - name: limit-distribution
     disabled: true
     scope: router
   - name: basic-auth
-    disabled: false
+    disabled: true
     scope: global
   - name: jwt-auth
-    disabled: false
+    disabled: true
     scope: global
   - name: redirect
-    disabled: false
+    disabled: true
     scope: global
