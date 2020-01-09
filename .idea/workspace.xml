@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f39afaa9-77b4-4ed1-8e34-ee5e9dfc9f54" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/../upstream-test/src/main/java/com/jufeng/test/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/admin/services.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/admin/services.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/balancer.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/balancer.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/plugin.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/plugin.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/plugins/limit-req.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/plugins/limit-req.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/rock/service.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/rock/service.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../bear/bear-core/src/main/java/com/jufeng/bear/core/BearMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-003/src/main/java/com/jufeng/springboot/example003/event/SportEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../spring-boot-example/example-007/src/main/resources/jufeng.properties" afterDir="false" />
@@ -33,14 +28,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lua/rock/balancer.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
+            <state relative-caret-position="-1650">
+              <caret line="49" column="7" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="7" />
               <folding>
                 <element signature="n#recive_upstream#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="205">
+                <caret line="100" column="12" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -128,11 +135,11 @@
         <option value="$PROJECT_DIR$/lua/rock/router.lua" />
         <option value="$PROJECT_DIR$/lua/rock/service.lua" />
         <option value="$PROJECT_DIR$/lua/rock/admin/services.lua" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/conf/config.yaml" />
         <option value="$PROJECT_DIR$/lua/rock/plugins/limit-req.lua" />
         <option value="$PROJECT_DIR$/lua/rock/plugin.lua" />
         <option value="$PROJECT_DIR$/lua/rock/balancer.lua" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -187,13 +194,6 @@
               <item name="api-rock" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="rock" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="core" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="api-rock" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="api-rock" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="lua" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="rock" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="plugins" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
@@ -218,7 +218,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578554698819" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578555471020" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -290,7 +290,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32947975" />
       <window_info anchor="bottom" id="DB Execution Console" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067025" side_tool="true" weight="0.32080925" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49932975" weight="0.24855492" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49932975" visible="true" weight="0.24855492" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Flutter Performance" order="12" side_tool="true" />
@@ -525,16 +525,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="990">
-            <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -589,11 +579,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lua/rock/balancer.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        <state relative-caret-position="-1650">
+          <caret line="49" column="7" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="7" />
           <folding>
             <element signature="n#recive_upstream#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="205">
+            <caret line="100" column="12" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="12" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
