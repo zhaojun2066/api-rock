@@ -65,9 +65,9 @@ local function run()
     end
 
     if req_body and id then
-        req_body.id = id
+        req_body.id = tonumber(id)
     elseif id then
-        req_body = id
+        req_body = tonumber(id)
     end
 
     local code, data = model[method]( req_body)

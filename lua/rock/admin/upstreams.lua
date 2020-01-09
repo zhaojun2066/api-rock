@@ -57,7 +57,7 @@ function _M.post(upstream)
     end
     local upstream_value = quote_sql_str(rock_core.json.encode_json(upstream))
     local sql = "insert into upstream (data,created,updated) values("..upstream_value..",now(),now())"
-    local res,err,sqlstate = rock_core.mysql.query(sql)
+    local res,err = rock_core.mysql.query(sql)
     if not res then
         return 500,{error_msg = err}
     end

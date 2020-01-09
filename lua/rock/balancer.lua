@@ -21,6 +21,7 @@ local lrucache = require ("resty.lrucache")
 local upstream_key = "rock_upstream"
 local string_char = string.char
 local string_gsub = string.gsub
+local tonumber = tonumber
 
 local _M = {}
 local upstream_hash
@@ -40,8 +41,9 @@ local function load_upstream()
 
     for _,v  in ipairs(res)  do
         local data = rock_core.json.decode_json(v.data)
-        data.id = v.id
-        upstream_hash[v.id] = data
+        local id = tonumber(v.id)
+        data.id = id
+        upstream_hash[id] = data
     end
 end
 
@@ -49,6 +51,7 @@ local function init_upstream_argo_cache()
     local c, err = lrucache.new(5000)  -- allow up to 5000 items in the cache
     if not c then
         rock_core.log.error("failed to create the cache: " .. (err or "unknown"))
+        return
     end
     upstream_argo_cache = c
 end
@@ -69,6 +72,11 @@ end
 
 local function delete(id)
     upstream_hash[id] = nil
+end
+
+local function delete_router_upstream(router_id)
+    upstream_argo_cache:delete("rr_"..router_id)
+    upstream_argo_cache:delete("ch_"..router_id)
 end
 
 
@@ -127,10 +135,14 @@ _M.get= get
 function _M.run()
     local matched_router = ngx.ctx.matched_router
     if not matched_router then
-        return rock_core.response.exit_error_msg(404,"router not found")
+        rock_core.log.error("matched_router not found ")
+        return rock_core.response.exit_code(404)
     end
     --- router.upstream> router.upstream_id > router.service_id> service.upstream> service.upstream_id
     local upstream
+    rock_core.log.error("matched_router=> " .. rock_core.json.encode_json(matched_router))
+    rock_core.log.error("upstream_hash=> " .. rock_core.json.encode_json(upstream_hash))
+    rock_core.log.error("matched_router.upstream_id=> " .. matched_router.upstream_id)
     if matched_router.upstream then
         upstream = matched_router.upstream
     elseif  matched_router.upstream_id then
@@ -138,7 +150,8 @@ function _M.run()
     elseif  matched_router.service_id then
         local matched_service = service.get(matched_router.service_id)
         if not matched_service then
-            return rock_core.response.exit_error_msg(404,"service not found")
+            rock_core.log.error("matched_service not found ")
+            return rock_core.response.exit_code(404)
         end
         if  matched_service.upstream then
             upstream = matched_service.upstream
@@ -148,17 +161,21 @@ function _M.run()
     end
     --- 未找到路由
     if not upstream then
-        return rock_core.response.exitexit_code(404)
+        rock_core.log.error("upstream not found ")
+        return rock_core.response.exit_code(404)
     end
 
     local up_nodes = upstream.nodes
     local type = upstream.type -- "chash", "roundrobin"
     local server
     local router_id = matched_router.id
+    rock_core.log.error("upstream.type=> " .. upstream.type)
     if type == "roundrobin" then
+        rock_core.log.error("roundrobin")
         local cache_key ="rr_" .. router_id
         local picker = upstream_argo_cache:get(cache_key)
         if not picker then
+            rock_core.log.error("roundrobin:new")
             picker = roundrobin:new(up_nodes)
             upstream_argo_cache:set(cache_key,picker,300) ---ttl is second
         end
@@ -207,6 +224,11 @@ end
 
 function _M.reload_upstream()
     load_upstream()
+end
+
+---- 删除路由对应up_stream 的轮询策略
+function _M.delete_router_upstream(router_id)
+        delete_router_upstream(router_id)
 end
 
 

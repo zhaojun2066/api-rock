@@ -10,6 +10,7 @@ local require = require
 local rock_core = require('rock.core')
 local new_table = require ("table.new")
 local rock_plugin = require ("rock.plugin")
+local rock_balancer = require ("rock.balancer")
 local ipairs = ipairs
 local pairs  = pairs
 local ngx = ngx
@@ -131,12 +132,14 @@ end
 local function put(router)
     router_hash[router.id] = router
     reload_routers()
+    rock_balancer.delete_router_upstream(router.id) -- 此时路由规则可能会变，删除缓存
     rock_core.log.error("rock.router.put().recive_router=> " .. rock_core.json.encode_json(router))
 end
 
 local function delete(id)
     router_hash[id] = nil
     reload_routers()
+    rock_balancer.delete_router_upstream(id)
 end
 
 
