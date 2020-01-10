@@ -215,12 +215,44 @@ function _M.run()
         return rock_core.response.exit_code(502)
     end
 
-    rock_core.log.error("set_current_peer: ", ip,":",port)
+    local timeout = upstream.timeout
+    if timeout then
+        --- timeout.connect => proxy_connect_timeout
+        ----send_timeout and read_timeout are controlled by the same config proxy_timeout
+        local ok, err = ngx_balancer.set_timeouts( timeout.connect, timeout.send,
+            timeout.read)
+        if not ok then
+            rock_core.log.error("could not set upstream timeouts: ", err)
+        end
+    end
+    local retries = upstream.retries
+    if retries and retries > 0 then
+        ngx.ctx.balancer_try_count = (ngx.ctx.balancer_try_count or 0) + 1
+        if ngx.ctx.balancer_try_count > 1 then
+            local state, code = ngx_balancer.get_last_failure()
+            rock_core.log.error("ngx_balancer.get_last_failure() status , code: ", state," , ", code,
+                ",ip,port=> ", ngx.ctx.balancer_ip,":",ngx.ctx.balancer_port)
+        end
+
+
+        if ngx.ctx.balancer_try_count ==1 then
+            ---todo get_last_failure  获取 状态 然后上报到监控系统 或者报警
+            local ok, err = ngx_balancer.set_more_tries(retries)
+            if not ok then
+                rock_core.log.error("could not set upstream retries: ", err)
+            end
+        end
+    end
+    rock_core.log.error("ngx.ctx.balancer_try_count: ", ngx.ctx.balancer_try_count)
     local ok, err = ngx_balancer.set_current_peer( ip, port )
     if not ok then
         rock_core.log.error("failed to set server peer: ", err)
         return rock_core.response.exit_code(502)
     end
+    rock_core.log.error("set_current_peer: ", ip,":",port)
+    --- 出入当前ip ，下次如果重试，就知道上次失败的ip和端口了
+    ngx.ctx.balancer_ip = ip
+    ngx.ctx.balancer_port = port
 
 end
 

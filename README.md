@@ -15,7 +15,7 @@
     列出所有 openresty 仓库里头的软件包：然后自行安装
     sudo yum --disablerepo="*" --enablerepo="openresty" list available
     
-    二进制安装
+    
     tar -zxvf openresty-1.13.6.2.tar.gz
     cd openresty-1.13.6.2
     yum install -y gcc gcc-c++ readline-devel pcre-devel openssl-devel tcl perl
@@ -102,7 +102,7 @@
     stat
     ip-restriction ip white block list
     降级
-     ab-test
+    ab-test
     
     
         
